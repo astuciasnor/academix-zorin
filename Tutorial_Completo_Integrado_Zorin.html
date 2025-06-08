@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tutorial Completo de Instalação e Configuração no Zorin OS Lite</title>
+<style>
+  /* Reset básico */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Arial', sans-serif; /* Fonte mais moderna */
+    display: flex;
+    height: 100vh;
+    color: #333; /* Cor do texto mais suave */
+    background: #f8faff; /* Fundo levemente azulado */
+    scroll-behavior: smooth;
+    overflow: hidden;
+  }
+  nav#sidebar {
+    width: 280px;
+    background: #2a3e51; /* Azul escuro */
+    color: #e0eaff; /* Texto claro */
+    padding: 1.5rem 1.2rem;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    font-weight: 500;
+    flex-shrink: 0; /* Não encolher */
+  }
+  nav#sidebar h2 {
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+    color: #92bce6; /* Azul claro */
+    user-select: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.8rem;
+  }
+  nav#sidebar ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  nav#sidebar ul li {
+    margin-bottom: 0.5rem;
+  }
+  nav#sidebar ul li a,
+  nav#sidebar ul li .menu-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 6px; /* Bordas mais arredondadas */
+    color: #e0eaff;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  nav#sidebar ul li a:hover,
+  nav#sidebar ul li .menu-header:hover,
+  nav#sidebar ul li a:focus,
+  nav#sidebar ul li .menu-header:focus {
+    background-color: #4f6d8c; /* Azul médio */
+    color: #ffffff;
+    outline: none;
+  }
+  nav#sidebar ul ul {
+    padding-left: 1.2rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out; /* Transição mais suave */
+    margin-top: 0.3rem;
+  }
+  nav#sidebar li.expanded > ul {
+    max-height: 1000px; /* Suficiente para expandir */
+  }
+  nav#sidebar ul li .menu-header::before {
+    content: "▶";
+    margin-right: 10px;
+    transition: transform 0.3s ease, color 0.3s ease;
+    font-size: 0.7rem;
+    color: #b0c9e6; /* Azul esmaecido */
+  }
+  nav#sidebar li.expanded > .menu-header::before {
+    content: "▼";
+    color: #ffffff;
+  }
+  main#content {
+    flex: 1;
+    padding: 2.5rem 3.5rem; /* Mais espaçamento */
+    overflow-y: auto;
+    height: 100vh;
+    background: #ffffff; /* Fundo branco para o conteúdo */
+    box-shadow: -2px 0 8px rgba(0,0,0,0.05); /* Sombra suave à esquerda */
+  }
+  h1, h2, h3 {
+    color: #1e3d5a; /* Azul escuro mais forte */
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    margin-top: 0;
+    font-size: 2.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 1.5rem;
+  }
+  h2 {
+    font-size: 1.6rem;
+    color: #2e5c8a; /* Azul médio */
+  }
+  h3 {
+    font-size: 1.3rem;
+    color: #3f6f9e; /* Azul um pouco mais claro */
+  }
+  p, ul, ol, blockquote {
+    line-height: 1.6; /* Espaçamento de linha maior */
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem; /* Texto ligeiramente maior */
+    color: #333;
+  }
+  blockquote {
+    border-left: 5px solid #2e5c8a; /* Cor do azul médio */
+    padding: 1.2rem;
+    color: #444;
+    font-style: italic;
+    background: #e9f5ff; /* Fundo azul bem claro */
+    border-radius: 5px;
+    margin-bottom: 2rem;
+  }
+  pre {
+    position: relative;
+    background: #282c34; /* Fundo de código escuro */
+    color: #abb2bf; /* Texto de código claro */
+    padding: 1.2rem;
+    border-radius: 8px; /* Bordas mais arredondadas */
+    font-family: 'Fira Code', 'Consolas', monospace; /* Fonte monoespaçada moderna */
+    font-size: 0.95rem;
+    overflow-x: auto;
+    margin-bottom: 2rem;
+    border: 1px solid #3d4450;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.4;
+  }
+  code {
+    font-family: inherit;
+    font-size: 1em;
+    background: none;
+    padding: 0;
+    color: #a8cced; /* Cor do código mais azulada */
+  }
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #007bff; /* Azul vibrante */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+    user-select: none;
+    z-index: 10;
+  }
+  .copy-btn:hover {
+    opacity: 1;
+    background-color: #0056b3; /* Azul mais escuro no hover */
+  }
+  a.external-link {
+    color: #007bff; /* Azul vibrante para links */
+    text-decoration: none;
+    border-bottom: 1px dashed #007bff; /* Sublinhado tracejado */
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+  }
+  a.external-link:hover {
+    color: #0056b3;
+    border-bottom-color: #0056b3;
+  }
+  .highlight-box {
+    background: #dff0d8; /* Verde claro para sucesso/informação */
+    border-left: 5px solid #28a745; /* Verde para sucesso */
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    color: #155724; /* Texto verde escuro */
+  }
+  .warning-box {
+    background: #fff3cd; /* Amarelo claro para aviso */
+    border-left: 5px solid #ffc107; /* Amarelo para aviso */
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    color: #664d03; /* Texto amarelo escuro */
+  }
+
+  @media (max-width: 900px) {
+    nav#sidebar {
+      width: 220px;
+      padding: 1rem 0.8rem;
+    }
+    main#content {
+      padding: 1.5rem 1.5rem;
+    }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.4rem; }
+    h3 { font-size: 1.2rem; }
+  }
+  @media (max-width: 700px) {
+    body {
+      display: block; /* Mudar para bloco em telas pequenas */
+      overflow-y: auto; /* Permitir scroll no corpo */
+      height: auto;
+    }
+    nav#sidebar {
+      width: 100%;
+      height: auto;
+      max-height: 250px; /* Limitar altura da sidebar no mobile */
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    nav#sidebar ul ul {
+        max-height: fit-content; /* Expandir tudo no mobile */
+        transition: none;
+    }
+    nav#sidebar ul li.expanded > ul {
+        max-height: fit-content;
+    }
+    nav#sidebar .menu-header::before {
+        display: none; /* Remover setas no mobile */
+    }
+    main#content {
+      padding: 1rem;
+      height: auto;
+    }
+  }
+</style>
+<script>
+  function copyToClipboard(btn) {
+    const pre = btn.parentElement;
+    if (!pre) return;
+    const code = pre.querySelector('code');
+    if (!code) return;
+    navigator.clipboard.writeText(code.textContent).then(() => {
+      btn.textContent = 'Copiado!';
+      setTimeout(() => {
+        btn.textContent = 'Copiar';
+      }, 1500);
+    }).catch(err => {
+      console.error('Falha ao copiar:', err);
+      btn.textContent = 'Erro!';
+    });
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('nav#sidebar .menu-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const li = header.parentElement;
+        li.classList.toggle('expanded');
+      });
+    });
+
+    // Add copiar buttons to <pre>
+    document.querySelectorAll('pre').forEach(pre => {
+      if (!pre.querySelector('.copy-btn')) {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.type = 'button';
+        btn.innerText = 'Copiar';
+        btn.addEventListener('click', () => copyToClipboard(btn));
+        pre.appendChild(btn);
+      }
+    });
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('nav#sidebar a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        document.querySelector(targetId).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  });
+</script>
+</head>
+<body>
+<nav id="sidebar" aria-label="Índice do tutorial completo">
+  <h2>Índice Geral</h2>
+  <ul>
+    <li><a href="#tutorial-geral">Visão Geral do Tutorial</a></li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-inicio" aria-label="Toggle Seção Início">Início - Arquivos e Links</div>
+      <ul id="submenu-inicio" aria-hidden="true">
+        <li><a href="#inicio-links">Links Oficiais para Download</a></li>
+        <li><a href="#inicio-arquivos-sh">Seus Scripts .sh</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-main-script" aria-label="Toggle Script Principal submenu">Script Principal (install_all_programs.sh)</div>
+      <ul id="submenu-main-script" aria-hidden="true">
+        <li><a href="#main-script-introducao">O que ele faz</a></li>
+        <li><a href="#main-script-como-usar">Como Usar</a></li>
+        <li><a href="#main-script-estrutura">Estrutura e Ordem</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-chrome" aria-label="Toggle Google Chrome submenu">Google Chrome</div>
+      <ul id="submenu-chrome" aria-hidden="true">
+        <li><a href="#chrome-introducao-detalhada">Introdução</a></li>
+        <li><a href="#chrome-como-funciona">Como o script funciona</a></li>
+        <li><a href="#chrome-finalizacao-detalhada">Finalização</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-onlyoffice" aria-label="Toggle OnlyOffice submenu">OnlyOffice</div>
+      <ul id="submenu-onlyoffice" aria-hidden="true">
+        <li><a href="#onlyoffice-introducao-detalhada">Introdução</a></li>
+        <li><a href="#onlyoffice-como-funciona">Como o script funciona</a></li>
+        <li><a href="#onlyoffice-finalizacao-detalhada">Finalização</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-wps" aria-label="Toggle WPS Office submenu">WPS Office</div>
+      <ul id="submenu-wps" aria-hidden="true">
+        <li><a href="#wps-introducao-detalhada">Introdução</a></li>
+        <li><a href="#wps-como-funciona">Como o script funciona</a></li>
+        <li><a href="#wps-suporte-detalhada">Suporte e dúvidas</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-peazip" aria-label="Toggle PeaZip submenu">PeaZip</div>
+      <ul id="submenu-peazip" aria-hidden="true">
+        <li><a href="#peazip-introducao">Introdução</a></li>
+        <li><a href="#peazip-como-funciona">Como o script funciona</a></li>
+        <li><a href="#peazip-finalizacao">Finalização</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-pinta-geogebra" aria-label="Toggle Pinta e GeoGebra submenu">Pinta e GeoGebra</div>
+      <ul id="submenu-pinta-geogebra" aria-hidden="true">
+        <li><a href="#pinta-geogebra-introducao">Introdução</a></li>
+        <li><a href="#pinta-geogebra-como-funciona">Como o script funciona</a></li>
+        <li><a href="#pinta-geogebra-finalizacao">Finalização</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-flameshot" aria-label="Toggle Flameshot submenu">Flameshot</div>
+      <ul id="submenu-flameshot" aria-hidden="true">
+        <li><a href="#flameshot-introducao">Introdução</a></li>
+        <li><a href="#flameshot-como-funciona">Como o script funciona</a></li>
+        <li><a href="#flameshot-finalizacao">Finalização</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-zotero" aria-label="Toggle Zotero submenu">Zotero</div>
+      <ul id="submenu-zotero" aria-hidden="true">
+        <li><a href="#zotero-introducao">Introdução</a></li>
+        <li><a href="#zotero-como-funciona">Como o script funciona</a></li>
+        <li><a href="#zotero-finalizacao">Finalização</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-julia" aria-label="Toggle Julia submenu">Julia</div>
+      <ul id="submenu-julia" aria-hidden="true">
+        <li><a href="#julia-introducao">Introdução</a></li>
+        <li><a href="#julia-como-funciona">Como o script funciona</a></li>
+        <li><a href="#julia-finalizacao">Finalização</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-quarto" aria-label="Toggle Quarto submenu">Quarto</div>
+      <ul id="submenu-quarto" aria-hidden="true">
+        <li><a href="#quarto-introducao">Introdução</a></li>
+        <li><a href="#quarto-como-funciona">Como o script funciona</a></li>
+        <li><a href="#quarto-finalizacao">Finalização</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-r" aria-label="Toggle R e RStudio submenu">R e RStudio</div>
+      <ul id="submenu-r" aria-hidden="true">
+        <li><a href="#r-introducao-detalhada">Introdução</a></li>
+        <li><a href="#r-como-funciona">Como o script funciona</a></li>
+        <li><a href="#r-rstudio-wget-detalhada">Instalação Avançada do RStudio via wget</a></li>
+        <li><a href="#r-pacotes-detalhada">Dica de instalação de pacotes</a></li>
+        <li><a href="#r-recursos-detalhada">Recursos úteis</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-python" aria-label="Toggle Instalação do Python submenu">Instalação e Configuração do Python e VS Code</div>
+      <ul id="submenu-python" aria-hidden="true">
+        <li><a href="#python-vscode-introducao">Introdução</a></li>
+        <li><a href="#python-vscode-como-funciona">Como o script funciona</a></li>
+        <li><a href="#python-vscode-automatizado">O que o script fará automaticamente</a></li>
+        <li><a href="#python-vscode-finalizacao">Finalização</a></li>
+      </ul>
+    </li>
+    <li>
+      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-grub" aria-label="Toggle Configuração do GRUB submenu">Configuração do GRUB</div>
+      <ul id="submenu-grub" aria-hidden="true">
+        <li><a href="#grub-introducao">Introdução</a></li>
+        <li><a href="#grub-passo1">Passo 1: Listar entradas</a></li>
+        <li><a href="#grub-passo2">Passo 2: Editar arquivo</a></li>
+        <li><a href="#grub-passo3">Passo 3: Configurar tempo</a></li>
+        <li><a href="#grub-passo4">Passo 4: Salvar e atualizar</a></li>
+        <li><a href="#grub-passo5">Passo 5: Reiniciar e verificar</a></li>
+        <li><a href="#grub-dica">Dica extra</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<main id="content" tabindex="-1">
+  <!-- Visão Geral -->
+  <section id="tutorial-geral">
+    <h1>Tutorial Completo de Instalação e Configuração no Zorin OS Lite</h1>
+    <p>Bem-vindo ao seu guia completo para configurar rapidamente seu recém-instalado Zorin OS Lite! Este tutorial utiliza uma série de scripts automatizados para instalar seus programas favoritos e realizar configurações essenciais de forma eficiente.</p>
+    <div class="highlight-box">
+      <strong>Por que usar este tutorial?</strong>
+      <ul>
+        <li><strong>Automação:</strong> Instale múltiplos programas com um único comando.</li>
+        <li><strong>Eficiência:</strong> Economize tempo e evite erros manuais.</li>
+        <li><strong>Robustez:</strong> Os scripts são projetados para lidar com dependências e problemas comuns de instalação.</li>
+        <li><strong>Organização:</strong> Todos os links e instruções em um só lugar.</li>
+      </ul>
+    </div>
+    <p>Para começar, certifique-se de que todos os arquivos necessários estejam na sua pasta <code>Downloads</code>, conforme as instruções abaixo.</p>
+  </section>
+
+  <!-- Seção inicial -->
+  <section id="inicio-links">
+    <h1>Início - Arquivos Necessários e Links para Download</h1>
+    <p>Antes de iniciar as instalações, você precisará baixar alguns arquivos e garantir que todos os scripts estejam no local correto.</p>
+
+    <h2 id="inicio-links">1. Links Oficiais para Download dos Arquivos .deb e .tar.gz</h2>
+    <p>Baixe os arquivos dos programas listados abaixo e coloque-os **TODOS na sua pasta <code>~/Downloads</code>**. Verifique os nomes exatos no site oficial, pois podem mudar com novas versões:</p>
+    <ul>
+      <li><a href="https://www.google.com/chrome/?platform=linux" target="_blank" class="external-link">Google Chrome (.deb)</a> (Ex: <code>google-chrome-stable_current_amd64.deb</code>)</li>
+      <li><a href="https://posit.co/downloads/" target="_blank" class="external-link">RStudio Desktop (.deb)</a> - Procure pela versão "Ubuntu 22.04+" ou "Jammy" (Ex: <code>rstudio-X.Y.Z-amd64.deb</code>)</li>
+      <li><a href="https://www.onlyoffice.com/pt/download-desktop.aspx" target="_blank" class="external-link">OnlyOffice (.deb)</a> - Procure pela versão "Debian, Ubuntu" (Ex: <code>onlyoffice-desktopeditors_amd64.deb</code>)</li>
+      <li><a href="https://www.wps.com/download/" target="_blank" class="external-link">WPS Office (.deb)</a> - Procure pela versão para "Linux" (Ex: <code>wps-office_11.X.X.XXXX_amd64.deb</code>)</li>
+      <li><a href="https://peazip.github.io/peazip-linux.html" target="_blank" class="external-link">PeaZip (.deb)</a> - Escolha a versão "GTK2" para sistemas baseados em Debian/Ubuntu (Ex: <code>peazip_X.Y.Z.LINUX.GTK2-1_amd64.deb</code>)</li>
+      <li><a href="https://quarto.org/docs/download/" target="_blank" class="external-link">Quarto (.deb)</a> - Escolha a versão "Debian/Ubuntu" (Ex: <code>quarto-1.X.X-linux-amd64.deb</code>)</li>
+      <li><a href="https://julialang.org/downloads/" target="_blank" class="external-link">Julia (Linux Binary - .tar.gz)</a> - Na seção "Current stable release", baixe "Linux Binary (x64)" (Ex: <code>julia-X.Y.Z-linux-x64.tar.gz</code>)</li>
+      <li><a href="https://www.python.org/downloads/release/" target="_blank" class="external-link">Python (Página de Downloads)</a> - **Você não precisa mais baixar o .tar.xz para o Python aqui, pois ele será instalado via PPA.** Esta página serve apenas como referência para versões.</li>
+      <li><a href="https://code.visualstudio.com/" target="_blank" class="external-link">Visual Studio Code (Página Principal)</a> - **Você não precisa mais baixar o .deb para o VS Code aqui, pois ele será instalado via Repositório Oficial da Microsoft.**</li>
+    </ul>
+
+    <h2 id="inicio-arquivos-sh">2. Seus Scripts <code>.sh</code></h2>
+    <p>Certifique-se de que todos os scripts de instalação que você criou ou que foram fornecidos estejam **TAMBÉM na sua pasta <code>~/Downloads</code>**. Isso é crucial para que o script principal possa encontrá-los e executá-los facilmente.</p>
+    <p>Os nomes esperados para os seus scripts são:</p>
+    <ul>
+      <li><code>install_all_programs.sh</code> (O script mestre que você executará)</li>
+      <li><code>install_chrome.sh</code></li>
+      <li><code>install_onlyoffice.sh</code></li>
+      <li><code>install_peazip.sh</code></li>
+      <li><code>install_pinta_geogebra_ppa.sh</code></li>
+      <li><code>install_flameshot_flatpak.sh</code></li>
+      <li><code>install_r_rstudio.sh</code></li>
+      <li><code>install_wps.sh</code></li>
+      <li><code>install_zotero_flatpak.sh</code></li>
+      <li><code>install_quarto.sh</code></li>
+      <li><code>install_julia.sh</code></li>
+      <li><code>install_python_vscode.sh</code></li>
+    </ul>
+    <div class="warning-box">
+      <strong>Importante:</strong> Se os nomes dos seus scripts forem diferentes, você precisará renomeá-los para corresponder à lista acima para que o <code>install_all_programs.sh</code> funcione corretamente.
+    </div>
+  </section>
+
+  <!-- Script Principal (install_all_programs.sh) -->
+  <section id="main-script-introducao">
+    <h1>Script Principal (<code>install_all_programs.sh</code>)</h1>
+    <h2 id="main-script-introducao">O que o <code>install_all_programs.sh</code> faz?</h2>
+    <p>Este é o script central do seu processo de instalação. Ele foi projetado para automatizar a execução de todos os outros scripts individuais que você organizou. Ao rodar este script, ele:</p>
+    <ul>
+      <li>Solicita a senha de administrador (sudo) apenas uma vez no início.</li>
+      <li>Chama cada um dos scripts específicos (Chrome, OnlyOffice, WPS, etc.) em uma sequência predefinida.</li>
+      <li>Verifica o sucesso de cada instalação individual e para o processo geral se encontrar algum erro crítico.</li>
+      <li>Fornece feedback no terminal sobre o progresso e a finalização de cada etapa.</li>
+    </ul>
+
+    <h2 id="main-script-como-usar">Como Usar o Script Principal</h2>
+    <p>Com todos os seus arquivos <code>.deb</code> e <code>.tar.gz</code> (Julia) e <code>.sh</code> organizados na pasta <code>~/Downloads</code>, siga estas etapas:</p>
+    <ol>
+      <li>
+        <strong>Abra o Terminal na Pasta <code>Downloads</code>:</strong>
+        <p>A forma mais simples é navegar até a pasta <code>Downloads</code> no seu gerenciador de arquivos (Ex: Nautilus, Dolphin, Thunar), clicar com o botão direito do mouse em um espaço vazio e selecionar a opção "Abrir Terminal Aqui" ou "Open Terminal Here".</p>
+        <p>Alternativamente, você pode abrir o terminal normalmente (Ctrl + Alt + T) e digitar:</p>
+        <pre><code>cd ~/Downloads</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+      </li>
+      <li>
+        <strong>Dê Permissão de Execução a Todos os Scripts:</strong>
+        <p>Este passo é crucial para que os scripts possam ser executados. No terminal (já na pasta <code>Downloads</code>), digite:</p>
+        <pre><code>chmod +x *.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+        <p>Este comando aplica permissão de execução a *todos* os arquivos que terminam com `.sh` na sua pasta atual.</p>
+      </li>
+      <li>
+        <strong>Execute o Script Principal:</strong>
+        <p>Agora, você pode iniciar o processo de instalação completo. No terminal, digite:</p>
+        <pre><code>./install_all_programs.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+        <p>O script pedirá que você pressione ENTER para continuar. Aguarde a conclusão de todas as instalações.</p>
+      </li>
+    </ol>
+
+    <h2 id="main-script-estrutura">Estrutura e Ordem de Instalação</h2>
+    <p>O script <code>install_all_programs.sh</code> executa os instaladores na seguinte ordem:</p>
+    <ol>
+      <li>Google Chrome (<code>install_chrome.sh</code>)</li>
+      <li>OnlyOffice (<code>install_onlyoffice.sh</code>)</li>
+      <li>WPS Office (<code>install_wps.sh</code>)</li>
+      <li>PeaZip (<code>install_peazip.sh</code>)</li>
+      <li>Pinta e GeoGebra (<code>install_pinta_geogebra_ppa.sh</code>)</li>
+      <li>Flameshot (<code>install_flameshot_flatpak.sh</code>)</li>
+      <li>Zotero (<code>install_zotero_flatpak.sh</code>)</li>
+      <li>Julia (<code>install_julia.sh</code>)</li>
+      <li>Quarto (<code>install_quarto.sh</code>)</li>
+      <li>R e RStudio (<code>install_r_rstudio.sh</code>)</li>
+      <li>Python (via PPA) e Visual Studio Code (via Repo Oficial) (<code>install_python_vscode.sh</code>)</li>
+    </ol>
+    <div class="highlight-box">
+      <strong>Finalização:</strong> Ao final da execução do script mestre, será recomendado reiniciar o sistema. Isso é importante para aplicar todas as mudanças, especialmente para o WPS Office e outras configurações de ambiente.
+    </div>
+  </section>
+
+  <!-- Google Chrome -->
+  <section id="chrome-introducao-detalhada">
+    <h1>Google Chrome</h1>
+    <h2 id="chrome-introducao-detalhada">Introdução</h2>
+    <p>Este script automatiza a instalação do Google Chrome no seu Zorin OS Lite a partir do arquivo <code>.deb</code> que você baixou. Ele garante que o Chrome seja instalado corretamente e tenta resolver automaticamente qualquer dependência ausente.</p>
+    <div class="warning-box">
+      <strong>Lembre-se:</strong> O arquivo <code>google-chrome-stable_current_amd64.deb</code> deve estar na sua pasta <code>~/Downloads</code>.
+    </div>
+
+    <h2 id="chrome-como-funciona">Como o script <code>install_chrome.sh</code> funciona</h2>
+    <p>O script procura o arquivo <code>.deb</code> do Chrome na pasta <code>Downloads</code>. Ele então utiliza o comando <code>sudo apt install -y ./<nome_do_arquivo.deb></code>, que é a maneira mais robusta de instalar pacotes locais, pois o <code>apt</code> automaticamente tenta resolver e instalar quaisquer dependências necessárias. Se a instalação falhar por dependências, ele executa <code>sudo apt-get install -f -y</code> para corrigir e tenta instalar novamente.</p>
+
+    <h3 id="chrome-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas o Chrome (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_chrome.sh
+./install_chrome.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="chrome-finalizacao-detalhada">Finalização</h2>
+    <p>Depois de instalado, você pode abrir o Google Chrome pelo menu de aplicativos do Zorin OS ou digitando no terminal:</p>
+    <pre><code>google-chrome</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>Para remover o Chrome no futuro, use:</p>
+    <pre><code>sudo apt remove google-chrome-stable</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+  </section>
+
+  <!-- OnlyOffice -->
+  <section id="onlyoffice-introducao-detalhada">
+    <h1>OnlyOffice</h1>
+    <h2 id="onlyoffice-introducao-detalhada">Introdução</h2>
+    <p>Este script simplifica a instalação do OnlyOffice a partir do arquivo <code>.deb</code> baixado na sua pasta <code>Downloads</code>. Ele gerencia o processo de instalação e a correção de dependências automaticamente.</p>
+    <div class="warning-box">
+      <strong>Lembre-se:</strong> O arquivo <code>onlyoffice-desktopeditors_amd64.deb</code> (ou similar) deve estar na sua pasta <code>~/Downloads</code>.
+    </div>
+
+    <h2 id="onlyoffice-como-funciona">Como o script <code>install_onlyoffice.sh</code> funciona</h2>
+    <p>O script busca o arquivo <code>.deb</code> do OnlyOffice na pasta <code>Downloads</code>, utiliza <code>sudo dpkg -i</code> para iniciar a instalação e, em seguida, executa <code>sudo apt-get install -f -y</code> para corrigir quaisquer dependências que possam ter impedido a instalação completa. Depois, tenta instalar novamente para garantir o sucesso.</p>
+
+    <h3 id="onlyoffice-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas o OnlyOffice (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_onlyoffice.sh
+./install_onlyoffice.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="onlyoffice-finalizacao-detalhada">Finalização</h2>
+    <p>Após a instalação, você poderá iniciar o OnlyOffice pelo menu de aplicativos ou digitando no terminal:</p>
+    <pre><code>onlyoffice-desktopeditors</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+  </section>
+
+  <!-- WPS Office -->
+  <section id="wps-introducao-detalhada">
+    <h1>WPS Office</h1>
+    <h2 id="wps-introducao-detalhada">Introdução</h2>
+    <p>Este script automatiza a instalação do WPS Office a partir do arquivo <code>.deb</code> e tenta configurar a tradução para o português brasileiro (pt_BR) e o corretor ortográfico. A tradução automática de interfaces complexas no Linux pode ser desafiadora devido a variações de versão, mas este script implementa a abordagem mais comum da comunidade.</p>
+    <div class="warning-box">
+      <strong>Lembre-se:</strong> O arquivo <code>wps-office_11.X.X.XXXX_amd64.deb</code> (ou similar) deve estar na sua pasta <code>~/Downloads</code>.
+    </div>
+
+    <h2 id="wps-como-funciona">Como o script <code>install_wps.sh</code> funciona</h2>
+    <p>O script primeiro instala o WPS Office base, corrigindo dependências. Em seguida, ele tenta aplicar a tradução e o corretor ortográfico:</p>
+    <ol>
+      <li>Garante a instalação do <code>p7zip-full</code> (necessário para extrair o pacote de tradução `mui.7z`).</li>
+      <li>Baixa o pacote de tradução `mui.7z` de um repositório comunitário no GitHub.</li>
+      <li>Extrai e copia os arquivos de tradução para o diretório de interface do WPS Office.</li>
+      <li>Instala os dicionários de ortografia para português do Brasil (<code>hunspell-pt-br</code> e <code>hyphen-pt-br</code>) via `apt`.</li>
+    </ol>
+    <h3 id="wps-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas o WPS Office (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_wps.sh
+./install_wps.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <div class="highlight-box">
+      <strong>IMPORTANTE: Configuração de Idioma e Corretor Ortográfico no WPS Office</strong>
+      <p>A tradução automática de interfaces complexas no Linux, especialmente para softwares como o WPS Office, pode ser inconsistente devido à incompatibilidade de versões entre o programa e os pacotes de tradução externos. Se a interface ou o corretor ortográfico não estiverem em português após a instalação e um reinício, siga estas etapas:</p>
+      <ol>
+        <li>Abra qualquer aplicativo do WPS Office (Writer, Spreadsheet, Presentation).</li>
+        <li>Vá em 'Tools' (Ferramentas) -> 'Switch Language' (Mudar Idioma). Se 'Português (Brasil)' estiver disponível, selecione-o e reinicie o aplicativo.</li>
+        <li>**Se o problema persistir ou a opção não aparecer:**
+          <ul>
+            <li>Acesse as configurações de idioma/ortografia do WPS Office (geralmente em 'Tools' -> 'Options' -> 'Spell Check' ou 'Language').</li>
+            <li>Dentro do WPS, procure e baixe os pacotes de idioma e/ou dicionários de ortografia diretamente através da interface do aplicativo. Este é o método mais confiável.</li>
+          </ul>
+        </li>
+      </ol>
+      Recomenda-se reiniciar o sistema após a instalação do WPS para garantir que todas as alterações se apliquem.
+    </div>
+
+    <h2 id="wps-suporte-detalhada">Suporte e dúvidas</h2>
+    <p>Se precisar de ajuda com este script ou com a instalação do WPS Office, consulte a documentação oficial ou os recursos de suporte.</p>
+  </section>
+
+  <!-- PeaZip -->
+  <section id="peazip-introducao">
+    <h1>PeaZip</h1>
+    <h2 id="peazip-introducao">Introdução</h2>
+    <p>Este script automatiza a instalação do PeaZip, um gerenciador de arquivos e extrator/compactador de arquivos multifuncional, a partir do seu arquivo <code>.deb</code>.</p>
+    <div class="warning-box">
+      <strong>Lembre-se:</strong> O arquivo <code>peazip_X.Y.Z.LINUX.GTK2-1_amd64.deb</code> (ou similar) deve estar na sua pasta <code>~/Downloads</code>.
+    </div>
+
+    <h2 id="peazip-como-funciona">Como o script <code>install_peazip.sh</code> funciona</h2>
+    <p>O script procura pelo arquivo <code>.deb</code> do PeaZip na pasta <code>Downloads</code>. Ele então atualiza a lista de pacotes e instala o `gdebi-core` (uma ferramenta recomendada para instalar pacotes `.deb` e gerenciar suas dependências de forma eficaz). Por fim, ele instala o PeaZip usando `gdebi`.</p>
+
+    <h3 id="peazip-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas o PeaZip (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_peazip.sh
+./install_peazip.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="peazip-finalizacao">Finalização</h2>
+    <p>Após a instalação, você pode encontrar o PeaZip no menu de aplicativos do Zorin OS ou executá-lo digitando <code>peazip</code> no terminal.</p>
+  </section>
+
+  <!-- Pinta e GeoGebra -->
+  <section id="pinta-geogebra-introducao">
+    <h1>Pinta e GeoGebra</h1>
+    <h2 id="pinta-geogebra-introducao">Introdução</h2>
+    <p>Este script instala dois utilitários importantes para o seu Zorin OS Lite: **Pinta** (editor de imagens) e **GeoGebra** (software de matemática dinâmica para educação e pesquisa). Pinta é instalado via seu PPA oficial para versões mais recentes, enquanto GeoGebra é instalado do repositório oficial do sistema.</p>
+
+    <h2 id="pinta-geogebra-como-funciona">Como o script <code>install_pinta_geogebra_ppa.sh</code> funciona</h2>
+    <p>O script primeiro garante que a ferramenta <code>add-apt-repository</code> (necessária para adicionar PPAs) esteja instalada. Em seguida, ele adiciona o PPA oficial do Pinta ao seu sistema. Após adicionar o PPA, ele atualiza a lista de pacotes e instala o Pinta. Por fim, ele instala o GeoGebra que está disponível diretamente nos repositórios padrão do Zorin OS (Ubuntu).</p>
+
+    <h3 id="pinta-geogebra-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas esses programas (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_pinta_geogebra_ppa.sh
+./install_pinta_geogebra_ppa.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="pinta-geogebra-finalizacao">Finalização</h2>
+    <ul>
+      <li>**Pinta:** Inicie procurando por "Pinta" no menu de aplicativos.</li>
+      <li>**GeoGebra:** Inicie procurando por "GeoGebra" no menu de aplicativos.</li>
+    </ul>
+  </section>
+
+  <!-- Flameshot (NOVA SEÇÃO SEPARADA) -->
+  <section id="flameshot-introducao">
+    <h1>Flameshot</h1>
+    <h2 id="flameshot-introducao">Introdução</h2>
+    <p>Este script instala o **Flameshot**, uma poderosa ferramenta de captura de tela com recursos avançados de edição, utilizando o método de instalação **Flatpak**. Esta é a forma mais recomendada para garantir uma instalação estável e atualizada, evitando problemas com PPAs.</p>
+    <div class="highlight-box">
+      <strong>Vantagens do Flatpak para Flameshot:</strong>
+      <ul>
+        <li>**Instalação Simples:** Comando único e confiável.</li>
+        <li>**Atualizações Automáticas:** Gerenciado pelo Flatpak, junto com outros aplicativos.</li>
+        <li>**Compatibilidade:** Funciona de forma consistente em diversas distribuições.</li>
+      </ul>
+    </div>
+
+    <h2 id="flameshot-como-funciona">Como o script <code>install_flameshot_flatpak.sh</code> funciona</h2>
+    <p>O script primeiro verifica se o Flatpak está instalado no seu sistema. Se não estiver, ele o instala. Em seguida, ele garante que o repositório Flathub (o principal repositório de aplicativos Flatpak) esteja configurado. Finalmente, ele instala o Flameshot diretamente do Flathub.</p>
+
+    <h3 id="flameshot-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas o Flameshot (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_flameshot_flatpak.sh
+./install_flameshot_flatpak.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="flameshot-finalizacao">Finalização</h2>
+    <p>Após a instalação, você pode iniciar o Flameshot procurando por "Flameshot" no menu de aplicativos. Para uma captura rápida, digite <code>flameshot gui</code> no terminal.</p>
+    <p>É **altamente recomendável** configurar um atalho de teclado (ex: tecla Print Screen) para o Flameshot nas configurações do sistema para maior conveniência:</p>
+    <ol>
+      <li>Vá em 'Configurações do Sistema' -> 'Teclado' -> 'Atalhos de teclado' (ou similar, o caminho pode variar ligeiramente no Zorin OS).</li>
+      <li>Adicione um atalho personalizado.</li>
+      <li>Nomeie-o como 'Flameshot' ou 'Captura de Tela'.</li>
+      <li>Para o comando, insira: '<code>flameshot gui</code>'.</li>
+      <li>Associe a tecla Print Screen (ou outra de sua preferência) a este atalho.</li>
+    </ol>
+    <p>Para manter seus aplicativos Flatpak (incluindo o Flameshot) atualizados, você pode executar periodicamente:</p>
+    <pre><code>flatpak update</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+  </section>
+
+  <!-- Zotero -->
+  <section id="zotero-introducao">
+    <h1>Zotero</h1>
+    <h2 id="zotero-introducao">Introdução</h2>
+    <p>Este script instala o Zotero, um poderoso gerenciador de referências e citações, utilizando o método de instalação Flatpak. O Flatpak é a forma recomendada para Zotero no Linux, pois oferece isolamento, atualizações automáticas e acesso às versões mais recentes.</p>
+    <div class="highlight-box">
+      <strong>Vantagens do Flatpak:</strong>
+      <ul>
+        <li>**Instalação Simples:** Comando único.</li>
+        <li>**Atualizações Fáceis:** O Flatpak gerencia as atualizações automaticamente.</li>
+        <li>**Ambiente Seguro:** Zotero roda em um ambiente isolado.</li>
+        <li>**Versão Mais Recente:** Acesso rápido às últimas versões do Zotero via Flathub.</li>
+      </ul>
+    </div>
+
+    <h2 id="zotero-como-funciona">Como o script <code>install_zotero_flatpak.sh</code> funciona</h2>
+    <p>O script primeiro verifica se o Flatpak está instalado no seu sistema. Se não estiver, ele o instala. Em seguida, ele garante que o repositório Flathub (o principal repositório de aplicativos Flatpak) esteja configurado. Finalmente, ele instala o Zotero diretamente do Flathub.</p>
+
+    <h3 id="zotero-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas o Zotero (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_zotero_flatpak.sh
+./install_zotero_flatpak.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="zotero-finalizacao">Finalização</h2>
+    <p>Após a instalação, você pode iniciar o Zotero pesquisando por "Zotero" no menu de aplicativos. Para manter seus aplicativos Flatpak (incluindo o Zotero) atualizados, você pode executar periodicamente:</p>
+    <pre><code>flatpak update</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+  </section>
+
+  <!-- Julia -->
+  <section id="julia-introducao">
+    <h1>Julia</h1>
+    <h2 id="julia-introducao">Introdução</h2>
+    <p>Este script automatiza a instalação da linguagem de programação **Julia**, uma linguagem de alto desempenho para computação técnica e científica. A instalação é feita a partir do arquivo binário oficial (<code>.tar.gz</code>) para garantir a versão mais recente e estável, e a integração com o Visual Studio Code é configurada.</p>
+    <div class="warning-box">
+      <strong>Lembre-se:</strong> O arquivo <code>julia-X.Y.Z-linux-x64.tar.gz</code> (ou similar, onde X.Y.Z é a versão) deve estar na sua pasta <code>~/Downloads</code>. Baixe-o de <a href="https://julialang.org/downloads/" target="_blank" class="external-link">julialang.org/downloads/</a>.
+    </div>
+
+    <h2 id="julia-como-funciona">Como o script <code>install_julia.sh</code> funciona</h2>
+    <p>O script procura o arquivo <code>.tar.gz</code> do Julia na pasta <code>Downloads</code>. Em seguida, ele realiza os seguintes passos:</p>
+    <ol>
+      <li>Descompacta o arquivo em um diretório temporário.</li>
+      <li>Move a pasta extraída do Julia para <code>/opt/</code> (um local padrão para softwares instalados globalmente que não são gerenciados por pacotes do sistema).</li>
+      <li>Cria um link simbólico (`symlink`) para o executável `julia` em `/usr/local/bin/`, o que permite que você execute `julia` diretamente de qualquer lugar no terminal.</li>
+      <li>Limpa os arquivos temporários.</li>
+      <li>Instala a extensão oficial da Julia para o Visual Studio Code, se o VS Code já estiver instalado.</li>
+    </ol>
+    <h3 id="julia-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas Julia (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_julia.sh
+./install_julia.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="julia-finalizacao">Finalização</h2>
+    <p>Após a instalação, você pode iniciar a REPL (Read-Eval-Print Loop) da Julia digitando <code>julia</code> no terminal.</p>
+    <p>Para usar Julia no Visual Studio Code, a extensão já deve ter sido instalada (se o VS Code estava presente). No VS Code, você pode abrir a Paleta de Comandos (Ctrl+Shift+P ou Cmd+Shift+P no macOS) e digitar "Julia: Start REPL" ou "Julia: New File" para começar a programar.</p>
+  </section>
+
+  <!-- Quarto -->
+  <section id="quarto-introducao">
+    <h1>Quarto</h1>
+    <h2 id="quarto-introducao">Introdução</h2>
+    <p>Este script automatiza a instalação do **Quarto**, um sistema de publicação de código aberto para criar documentos científicos e técnicos de alta qualidade (relatórios, apresentações, sites, livros, etc.). Ele é amplamente utilizado com R e Python para gerar conteúdo dinâmico.</p>
+    <div class="warning-box">
+      <strong>Lembre-se:</strong> O arquivo <code>quarto-1.X.X-linux-amd64.deb</code> (ou similar) deve estar na sua pasta <code>~/Downloads</code>.
+    </div>
+
+    <h2 id="quarto-como-funciona">Como o script <code>install_quarto.sh</code> funciona</h2>
+    <p>O script procura o arquivo `.deb` do Quarto na pasta <code>Downloads</code> e utiliza o comando <code>sudo apt install -y ./<nome_do_arquivo.deb></code> para instalar. Este comando é robusto e automaticamente tenta resolver e instalar quaisquer dependências necessárias. Se a instalação falhar por dependências, ele executa <code>sudo apt-get install -f -y</code> para corrigir e tenta instalar novamente.</p>
+
+    <h3 id="quarto-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas o Quarto (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_quarto.sh
+./install_quarto.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="quarto-finalizacao">Finalização</h2>
+    <p>Após a instalação, o Quarto estará disponível para ser usado no terminal (digitando <code>quarto</code>) ou integrado a ambientes como RStudio e Visual Studio Code.</p>
+  </section>
+
+  <!-- R e RStudio -->
+  <section id="r-introducao-detalhada">
+    <h1>R e RStudio</h1>
+    <h2 id="r-introducao-detalhada">Introdução</h2>
+    <p>Este script é um instalador completo para o ambiente R no seu Zorin OS Lite. Ele instala o R e todas as dependências de sistema essenciais para a maioria dos pacotes R populares, a fonte Cascadia Code (ótima para programação) e, opcionalmente, o RStudio Desktop.</p>
+    <div class="warning-box">
+      <strong>Lembre-se:</strong> Se for instalar o RStudio via script, o arquivo <code>rstudio-*.deb</code> deve estar na sua pasta <code>~/Downloads</code>.
+    </div>
+
+    <h2 id="r-como-funciona">Como o script <code>install_r_rstudio.sh</code> funciona</h2>
+    <p>O script executa uma série de passos robustos:</p>
+    <ol>
+      <li>Atualiza o sistema e instala ferramentas essenciais.</li>
+      <li>Adiciona a chave pública e o repositório CRAN oficial do R, garantindo a versão mais recente e estável.</li>
+      <li>Instala o R e suas ferramentas de desenvolvimento (`r-base-dev`).</li>
+      <li>Instala uma extensa lista de bibliotecas de desenvolvimento de sistema que são pré-requisitos para compilar e usar muitos pacotes R (por exemplo, para gráficos, conexão com banco de dados, manipulação de dados).</li>
+      <li>Instala a fonte Cascadia Code.</li>
+      <li>Detecta e instala automaticamente o arquivo `.deb` do RStudio se encontrado na sua pasta <code>Downloads</code>, corrigindo dependências se necessário.</li>
+    </ol>
+    <h3 id="r-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise instalar apenas R e RStudio (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_r_rstudio.sh
+./install_r_rstudio.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="r-rstudio-wget-detalhada">Instalação Avançada do RStudio via <code>wget</code> (Método Alternativo)</h2>
+    <p>Se você preferir sempre a versão mais recente do RStudio Desktop diretamente do site da Posit (mesmo que o script principal já tente instalar o `.deb` local), pode seguir estes passos após a instalação do R:</p>
+    <ol>
+      <li>Acesse <a href="https://posit.co/downloads/" target="_blank" class="external-link">https://posit.co/downloads/</a></li>
+      <li>Clique com o botão direito do mouse no nome do arquivo <code>.deb</code> desejado e selecione <strong>“Copiar endereço do link”</strong>.</li>
+      <li>No terminal, use os comandos a seguir, substituindo o link e o nome do arquivo conforme o que você copiou:
+        <pre><code>wget <LINK_COPIADO_DA_PAGINA_DA_POSIT>
+sudo apt install gdebi-core
+sudo gdebi nome_do_arquivo_baixado.deb</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+        Exemplo:
+        <pre><code>wget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2025.05.0-496-amd64.deb
+sudo apt install gdebi-core
+sudo gdebi rstudio-2025.05.0-496-amd64.deb</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+      </li>
+    </ol>
+    <p>Este método funciona para qualquer versão futura do RStudio diretamente do site oficial!</p>
+
+    <h2 id="r-pacotes-detalhada">Dica de Instalação de Pacotes no R</h2>
+    <p>Após abrir o R ou RStudio, você pode instalar pacotes comuns com:</p>
+    <pre><code>install.packages(c("tidyverse", "data.table", "devtools", "shiny", "remotes", "readxl", "openxlsx", "BiocManager"))</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>Para instalar pacotes do Bioconductor:</p>
+    <pre><code>BiocManager::install("limma")</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="r-recursos-detalhada">Recursos Úteis</h2>
+    <ul>
+      <li><a href="https://cran.r-project.org/bin/linux/ubuntu/" target="_blank" class="external-link">CRAN R para Ubuntu</a></li>
+      <li><a href="https://posit.co/download/rstudio-desktop/" target="_blank" class="external-link">RStudio Desktop - Download</a></li>
+      <li><a href="https://posit.co/downloads/" target="_blank" class="external-link">Página de todas as versões do RStudio Desktop</a></li>
+    </ul>
+  </section>
+
+  <!-- Instalação e Configuração do Python e VS Code -->
+  <section id="python-vscode-introducao">
+    <h1>Instalação e Configuração do Python e VS Code</h1>
+    <h2 id="python-vscode-introducao">Introdução</h2>
+    <p>Este tutorial utiliza o script <code>install_python_vscode.sh</code> para configurar um ambiente de desenvolvimento Python moderno e eficiente no seu Zorin OS Lite. Ele instala uma versão específica do Python (via PPA deadsnakes) e o Visual Studio Code (VS Code via repositório oficial da Microsoft), além de preparar um projeto inicial com bibliotecas essenciais.</p>
+    <div class="highlight-box">
+      <strong>Vantagens deste método:</strong>
+      <ul>
+        <li>**Simplicidade:** Não exige mais downloads de arquivos `.tar.xz` ou `.deb` para Python e VS Code; tudo é gerenciado pelo `apt`.</li>
+        <li>**Atualizações Fáceis:** Python e VS Code serão atualizados com o restante do sistema via `sudo apt update && sudo apt upgrade`.</li>
+        <li>**Consistência:** Instalação confiável em sistemas baseados em Ubuntu.</li>
+      </ul>
+    </div>
+    <div class="warning-box">
+      <strong>Observação sobre a versão do Python:</strong> O PPA deadsnakes oferece as versões estáveis mais recentes do Python (ex: 3.10, 3.11, 3.12). Python 3.13.4 é uma versão de desenvolvimento e pode não estar disponível neste PPA ainda. Se você *precisa* da 3.13.4 especificamente, a compilação manual (com a correção do `tk-dev`) é a única forma, mas é menos robusta e consistente. O script usará a última versão estável especificada (<code>3.12</code> no exemplo).
+    </div>
+
+    <h2 id="python-vscode-como-funciona">Como o script <code>install_python_vscode.sh</code> funciona</h2>
+    <p>O script realiza os seguintes passos de forma automatizada:</p>
+    <ol>
+      <li>**Python:**
+        <ul>
+          <li>Adiciona o PPA `deadsnakes` (repositório que fornece versões mais novas do Python).</li>
+          <li>Atualiza a lista de pacotes para incluir o PPA.</li>
+          <li>Instala a versão do Python especificada (ex: `python3.12` e `python3.12-venv`).</li>
+        </ul>
+      </li>
+      <li>**Visual Studio Code:**
+        <ul>
+          <li>Importa a chave GPG oficial da Microsoft.</li>
+          <li>Adiciona o repositório oficial do VS Code ao seu sistema.</li>
+          <li>Atualiza a lista de pacotes para incluir o novo repositório.</li>
+          <li>Instala o VS Code via `apt`.</li>
+        </ul>
+      </li>
+      <li>**Ambiente de Desenvolvimento Python:**
+        <ul>
+          <li>Cria um diretório de projeto exemplo (<code>~/PythonProjects/my_first_project</code>).</li>
+          <li>Cria um ambiente virtual (`.venv`) isolado dentro do projeto, usando a versão do Python instalada via `deadsnakes`.</li>
+          <li>Ativa o ambiente virtual e instala bibliotecas Python essenciais como `pandas`, `matplotlib` e `jupyterlab` via `pip`.</li>
+          <li>Gera arquivos `main.py` (com código de exemplo) e `README.md` (com instruções de uso) no projeto.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3 id="python-vscode-execucao-individual">Execução Individual (opcional)</h3>
+    <p>Caso precise configurar apenas o Python e VS Code (sem usar o script principal), no terminal (na pasta <code>Downloads</code>), execute:</p>
+    <pre><code>chmod +x install_python_vscode.sh
+./install_python_vscode.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="python-vscode-automatizado">O que o script <code>install_python_vscode.sh</code> fará (detalhes):</h2>
+    <ul>
+      <li>Adiciona o PPA `deadsnakes` e o repositório oficial do VS Code.</li>
+      <li>Instala Python (versão especificada) e `python-venv`.</li>
+      <li>Instala Visual Studio Code.</li>
+      <li>Cria a pasta <code>~/PythonProjects/my_first_project</code>.</li>
+      <li>Cria um ambiente virtual (`.venv`) para o projeto.</li>
+      <li>Instala as bibliotecas <code>pandas</code>, <code>matplotlib</code> e <code>jupyterlab</code> no ambiente virtual.</li>
+      <li>Gera um arquivo <code>main.py</code> com código de exemplo.</li>
+      <li>Gera um arquivo <code>README.md</code> com instruções para o projeto e uso no VS Code.</li>
+    </ul>
+
+    <h2 id="python-vscode-finalizacao">Finalização</h2>
+    <p>Após a instalação, você estará com seu ambiente Python moderno e pronto para programar com eficiência no Zorin OS. Para começar:</p>
+    <ol>
+      <li>Abra o terminal e vá para o diretório do projeto:
+        <pre><code>cd ~/PythonProjects/my_first_project</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+      </li>
+      <li>Ative o ambiente virtual para instalar/usar pacotes específicos do projeto:
+        <pre><code>source .venv/bin/activate</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+        <p>Você notará <code>(.venv)</code> aparecendo no seu prompt do terminal, indicando que o ambiente está ativo.</p>
+      </li>
+      <li>Abra o projeto no VS Code:
+        <pre><code>code .</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+      </li>
+    </ol>
+    <div class="highlight-box">
+      <strong>Dica para VS Code:</strong> Na primeira vez que você abrir este projeto no VS Code, ele pode perguntar qual interpretador Python usar. Selecione a opção que aponta para <code>.venv/bin/python</code> dentro do seu projeto para garantir que o VS Code utilize o ambiente virtual recém-criado.
+    </div>
+  </section>
+
+  <!-- Configuração do GRUB -->
+  <section id="grub-introducao">
+    <h1>Configuração do GRUB</h1>
+    <h2 id="grub-introducao">Introdução</h2>
+    <p>O GRUB (Grand Unified Bootloader) é o gerenciador de boot do seu sistema Linux. Se você tem um dual boot com Windows (ou outro sistema operacional), configurar o GRUB permite definir qual sistema inicia por padrão e por quanto tempo o menu de seleção fica visível. Este tutorial vai te ajudar a definir o Windows como opção padrão no boot.</p>
+
+    <h2 id="grub-passo1">Passo 1: Listar entradas do GRUB para identificar o Windows</h2>
+    <p>Abra o terminal e execute o comando para listar as entradas do menu do GRUB. Isso é importante para identificar o nome exato da sua entrada do Windows:</p>
+    <pre><code>grep "menuentry '" /boot/grub/grub.cfg</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>Você verá uma lista parecida com esta. **Anote exatamente** o nome da entrada do Windows que aparece entre aspas simples, por exemplo:</p>
+    <pre><code>menuentry 'Zorin' --class zorin ... {
+menuentry 'Windows Boot Manager (on /dev/nvme0n1p1)' --class windows --class os ... {
+menuentry 'UEFI Firmware Settings' ... {</code></pre>
+    <blockquote><code>'Windows Boot Manager (on /dev/nvme0n1p1)'</code></blockquote>
+
+    <h2 id="grub-passo2">Passo 2: Editar o arquivo de configuração principal do GRUB</h2>
+    <p>Agora, abra o arquivo de configuração para edição. Use <code>nano</code> (um editor de texto simples no terminal):</p>
+    <pre><code>sudo nano /etc/default/grub</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>Localize a linha que começa com <code>GRUB_DEFAULT=</code> e substitua pelo nome completo da entrada do Windows que você anotou no Passo 1. Use aspas duplas:</p>
+    <pre><code>GRUB_DEFAULT="Windows Boot Manager (on /dev/nvme0n1p1)"</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>Certifique-se de que o texto dentro das aspas seja idêntico ao que você anotou!</p>
+
+    <h2 id="grub-passo3">Passo 3: Configurar tempo de espera e exibição do menu</h2>
+    <p>No mesmo arquivo (`/etc/default/grub`), ajuste as linhas abaixo para definir o tempo que o GRUB exibirá o menu antes de iniciar o sistema padrão automaticamente:</p>
+    <pre><code>GRUB_TIMEOUT=10
+GRUB_TIMEOUT_STYLE=menu</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>Onde:</p>
+    <ul>
+      <li><strong><code>GRUB_TIMEOUT=10</code>:</strong> O menu ficará 10 segundos visível. Você pode mudar para qualquer valor em segundos.</li>
+      <li><strong><code>GRUB_TIMEOUT_STYLE=menu</code>:</strong> Garante que o menu seja exibido durante o tempo configurado.</li>
+    </ul>
+    <p>Se quiser que o menu espere indefinidamente até que o usuário selecione a opção e pressione Enter, defina:</p>
+    <pre><code>GRUB_TIMEOUT=-1</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="grub-passo4">Passo 4: Salvar e atualizar o GRUB</h2>
+    <p>Após fazer as edições no arquivo, salve e feche o editor (no `nano`: pressione <code>Ctrl+O</code> para salvar, depois <code>Enter</code> para confirmar o nome do arquivo, e <code>Ctrl+X</code> para sair).</p>
+    <p>Em seguida, rode o comando para que o GRUB aplique as novas configurações:</p>
+    <pre><code>sudo update-grub</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+
+    <h2 id="grub-passo5">Passo 5: Reiniciar e verificar a configuração</h2>
+    <p>Por fim, reinicie o computador para ver as mudanças em ação:</p>
+    <pre><code>sudo reboot</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>Na tela do GRUB, o Windows deve aparecer como a primeira opção pré-selecionada, aguardando o tempo configurado para iniciar automaticamente, ou aguardando o Enter se você configurou o `GRUB_TIMEOUT=-1`.</p>
+
+    <h2 id="grub-dica">Dica extra para ambientes de laboratório</h2>
+    <p>Para evitar boot automático e garantir que o operador sempre escolha manualmente o sistema, especialmente em ambientes onde múltiplos sistemas são usados ou onde a atenção é necessária para a inicialização:</p>
+    <pre><code>GRUB_TIMEOUT=-1</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>Assim, o menu ficará visível até que alguém pressione Enter para iniciar o sistema selecionado.</p>
+  </section>
+</main>
+</body>
+</html>
