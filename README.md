@@ -1,90 +1,104 @@
-# Academix-Zorin
+<p align="center">
+  <img src="https://raw.githubusercontent.com/astuciasnor/academix-zorin/main/images/academix_logo.png" alt="Academix-Zorin Logo" width="600"/>
+</p>
 
-**Academix-Zorin** é um projeto voltado para a configuração automática do sistema Zorin OS (base Ubuntu) com foco em uso acadêmico e científico. Ele foi criado para facilitar a vida de estudantes, pesquisadores e professores que desejam um sistema pronto para produção de textos, análise de dados, edição de imagens e gerenciamento de referências, sem a necessidade de conhecimento avançado em Linux.
+<h1 align="center">Academix-Zorin</h1>
 
----
+<p align="center">
+  <strong>Robustez, Eficiência e Estilo para sua Jornada Acadêmica.</strong>
+</p>
 
-## 🔧 O que este projeto instala?
+<p align="center">
+  <a href="#-o-que-é-o-academix-zorin">Visão Geral</a> •
+  <a href="#-instalação-rápida">Instalação</a> •
+  <a href="#-programas-instalados">Programas</a> •
+  <a href="#-como-contribuir">Contribuir</a> •
+  <a href="https://astuciasnor.github.io/academix-zorin/Tutorial_Completo_Integrado_Zorin.html">Documentação Completa</a>
+</p>
 
-* Navegador Google Chrome
-* WPS Office traduzido para português
-* OnlyOffice Desktop
-* R + RStudio + Quarto
-* Python + VS Code (comvenv)
-* Julia
-* Zotero + integração com WPS Office
-* Geogebra + Pinta (via PPA)
-* Flameshot (captura de tela)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/astuciasnor/academix-zorin/main/images/academix_demo.gif" alt="Academix-Zorin em ação" width="800"/>
+</p>
 
----
+## 🚀 O que é o Academix-Zorin?
 
-## 🚀 Como usar
+**Academix-Zorin** é um projeto de inclusão digital e científica que automatiza a configuração do sistema Zorin OS. Criado para facilitar a vida de estudantes, pesquisadores e professores, ele transforma uma instalação limpa do Zorin em um sistema poderoso e pronto para a produção, sem a necessidade de conhecimento avançado em Linux.
 
-### 1. Requisitos
-
-* Zorin OS instalado (recomenda-se versão Core ou Lite)
-* Acesso à Internet
-* Espaço livre em disco (cerca de 3 GB para instalação completa)
-
-### 2. Baixar os arquivos:
-
-#### 💾 Scripts
-
-Baixe os scripts de instalação:
-[Download dos scripts (.sh)](https://drive.google.com/file/d/1gugdpcYKWfflllb4jltEPgztwnGRD4Dj/view)
-
-#### 🌌 Pacotes pesados (.deb, .tar.gz, .zip)
-
-[Download dos arquivos de instalação](https://drive.google.com/file/d/1g9rfVOP1YuU5g0dvRo9lmwL3Q37UlhjO/view)
-
-### 3. Extração e execução
-
-```bash
-mkdir ~/AcademixZorin
-cd ~/AcademixZorin
-# extraia os dois arquivos compactados aqui
-tar -xf scripts_academix_zorin.tar.gz
-unzip arquivos_pesados.zip
-chmod +x *.sh
-./install_all_programs.sh
-```
+Com um único comando, o Academix-Zorin instala e configura um ambiente completo para produção de textos, análise de dados, edição de imagens e gerenciamento de referências.
 
 ---
 
-## 🔹 Estrutura de Pastas Recomendada
+## ⚡ Instalação Rápida
 
-```text
-AcademixZorin/
-├── install_all_programs.sh
-├── limpar_residuos.sh
-├── install_gui.sh
-├── integrar_zotero_wps.sh
-├── install_*.sh  # (todos os outros scripts de instalação)
-├── pacotes/
-│   ├── google-chrome.deb
-│   ├── onlyoffice.deb
-│   ├── peazip.deb
-│   ├── zotero.tar.bz2
-│   ├── ...
-└── README.md
-```
+Para começar, abra o terminal (`Ctrl+Alt+T`) e execute os seguintes comandos. O processo é 100% automático.
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone https://github.com/astuciasnor/academix-zorin.git
+    ```
+
+2.  **Entre no diretório do projeto:**
+    ```bash
+    cd academix-zorin
+    ```
+
+3.  **Execute o instalador:**
+    ```bash
+    ./academix-zorin.sh
+    ```
+    O script pedirá sua senha de administrador e cuidará de todo o resto. Sente-se, tome um café e veja a mágica acontecer!
 
 ---
 
-## 📅 Atualizações
+## 📦 Programas Instalados
 
-Este projeto será atualizado mensalmente para incluir:
+O instalador irá configurar os seguintes módulos para você:
 
-* Novas versões de programas
-* Melhoria nos scripts
-* Integrações adicionais (LibreOffice, LaTeX, editores de PDF etc.)
+### 🎓 Produtividade Acadêmica
+- **WPS Office**: Suíte de escritório moderna e compatível (com tradução pt-BR).
+- **Zotero**: Gerenciador de referências bibliográficas.
+- **Integração Zotero-WPS**: Para citar diretamente nos seus documentos.
+- **Okular**: Visualizador de documentos poderoso (PDF, etc.).
+- **Xournal++**: Para fazer anotações em PDFs e artigos científicos.
+
+### 🔬 Desenvolvimento Científico
+- **R & RStudio**: O ambiente padrão para análise estatística.
+- **Python & VS Code**: A combinação mais popular para ciência de dados e desenvolvimento.
+- **Quarto**: Sistema de publicação para criar artigos e relatórios.
+- **Inkscape**: Editor de gráficos vetoriais para criar figuras com qualidade de publicação.
+
+### 🛠️ Utilitários Essenciais
+- **Google Chrome**: Navegador web rápido.
+- **Mailspring**: Cliente de e-mail elegante e eficiente.
+- **KeePassXC**: Gerenciador de senhas seguro e de código aberto.
+- **PeaZip**: Compactador e descompactador de arquivos.
+- **Flameshot**: Ferramenta avançada para captura de tela.
+- **Pinta**: Editor de imagens simples e rápido.
+
+---
+
+## 🔧 Manutenção e Notas Importantes
+
+Alguns scripts dependem de links de download diretos que podem mudar com o tempo. Se a instalação de um dos programas abaixo falhar no futuro, pode ser necessário atualizar a variável de URL no topo do script correspondente, localizado na pasta `scripts/`:
+- `install_r_rstudio.sh` (para o RStudio)
+- `install_peazip.sh`
+- `install_mailspring.sh`
+
+---
+
+## 📅 Atualizações Futuras (Roadmap)
+
+Este projeto será mantido ativamente. A versão 2.0 planeja incluir:
+*   Menu de seleção interativo para escolher quais programas instalar.
+*   Suporte a softwares de CAD (FreeCAD/LibreCAD).
+*   Opções de configuração para ambientes LaTeX (TexLive).
 
 ---
 
 ## 🙌 Autor
 
-Desenvolvido por [Evaldo Silva](https://github.com/astuciasnor), professor da Universidade Federal do Pará, apaixonado por ciência, educação e software livre.
+Desenvolvido por **Evaldo Silva** ([@astuciasnor](https://github.com/astuciasnor)), professor da Universidade Federal do Pará, apaixonado por ciência, educação e software livre.
 
 ---
 
-**Academix-Zorin** – Para que você possa se concentrar no que importa: ensinar, aprender e produzir ciência. 🚀
+> **Academix-Zorin** – Para que você possa se concentrar no que importa: ensinar, aprender e produzir ciência. 🚀
