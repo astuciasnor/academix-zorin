@@ -29,17 +29,50 @@ Com um único comando, o Academix-Zorin instala e configura um ambiente completo
 
 ## ⚡ Instalação Rápida
 
-Para começar, abra o terminal (`Ctrl+Alt+T`) e execute os seguintes comandos. O processo é 100% automático.
+Você pode instalar o Academix-Zorin de duas maneiras. O método com `git` é recomendado para facilitar futuras atualizações.
 
-1.  **Clone o repositório:**
+### Método 1 (Recomendado): Usando Git
+
+Este método requer que o `git` esteja instalado. Se você não tem certeza, rode o primeiro comando.
+
+1.  **Garanta que o Git esteja instalado:**
+    ```bash
+    sudo apt update && sudo apt install git -y
+    ```
+
+2.  **Clone o repositório:**
     ```bash
     git clone https://github.com/astuciasnor/academix-zorin.git
     ```
 
-2.  **Entre no diretório do projeto:**
+3.  **Entre no diretório e execute:**
     ```bash
     cd academix-zorin
+    ./academix-zorin.sh
     ```
+
+### Método 2 (Alternativa): Download Direto (ZIP)
+
+Se você não quer instalar o `git`, pode baixar o projeto como um arquivo `.zip`.
+
+1.  **Baixe e extraia o projeto:**
+    ```bash
+    # Baixa o arquivo ZIP do projeto
+    wget https://github.com/astuciasnor/academix-zorin/archive/refs/heads/main.zip
+    
+    # Extrai o arquivo
+    unzip main.zip
+    ```
+
+2.  **Entre no diretório e execute:**
+    ```bash
+    # O nome da pasta será 'academix-zorin-main'
+    cd academix-zorin-main
+    ./academix-zorin.sh
+    ```
+    *Nota: Para este método, você precisará ter o `unzip` instalado (`sudo apt install unzip`).*
+
+---
 
 3.  **Execute o instalador:**
     ```bash
