@@ -36,7 +36,6 @@ run_script() {
     local script_basename="$1"
     local description="$2"
 
-    # --- MUDANÇA PRINCIPAL AQUI ---
     # Constrói o caminho completo para o script dentro da pasta 'scripts/'
     local script_path="scripts/${script_basename}"
 
@@ -78,7 +77,6 @@ echo ""
 read -p "Pressione [ENTER] para começar ou [CTRL+C] para cancelar..."
 
 # --- Ordem de Execução dos Módulos ---
-# Note que as chamadas aqui continuam as mesmas. A mágica acontece dentro da função.
 run_script "00-prepare-system.sh" "Preparação e Limpeza do Sistema"
 run_script "install_wps.sh"       "Suíte de Escritório (WPS Office)"
 run_script "install_zotero.sh"    "Gerenciador de Referências (Zotero)"
@@ -90,8 +88,8 @@ run_script "install_chrome.sh"    "Navegador Web (Google Chrome)"
 run_script "install_mailspring.sh" "Cliente de E-mail (Mailspring)"
 run_script "install_okular.sh"    "Visualizador de Documentos (Okular)"
 run_script "install_peazip.sh"    "Compactador de Arquivos (PeaZip)"
-run_script "install_flameshot.sh" "Ferramenta de Captura de Tela (Flameshot)"
 run_script "install_pinta.sh"     "Editor de Imagens Simples (Pinta)"
+run_script "install_gimp.sh"      "Editor de Imagens Avançado (GIMP)" # <-- GIMP ADICIONADO
 run_script "install_xournalpp.sh" "Anotação de PDF e Quadro Branco (Xournal++)"
 run_script "install_inkscape.sh"  "Editor de Gráficos Vetoriais (Inkscape)"
 run_script "install_keepassxc.sh" "Gerenciador de Senhas (KeePassXC)"
