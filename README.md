@@ -12,8 +12,7 @@
   <a href="#-o-que-é-o-academix-zorin">Visão Geral</a> •
   <a href="#-instalação-rápida">Instalação</a> •
   <a href="#-programas-instalados">Programas</a> •
-  <a href="#-como-contribuir">Contribuir</a> •
-  <a href="https://astuciasnor.github.io/academix-zorin/Tutorial_Completo_Integrado_Zorin.html">Documentação Completa</a>
+  <a href="https://astuciasnor.github.io/academix-zorin/"><strong>📄 Manual Completo</strong></a>
 </p>
 
 <p align="center">
@@ -59,7 +58,7 @@ O instalador irá configurar os seguintes módulos para você:
 - **Zotero**: Gerenciador de referências bibliográficas.
 - **Integração Zotero-WPS**: Para citar diretamente nos seus documentos.
 - **Okular**: Visualizador de documentos poderoso (PDF, etc.).
-- **Xournal++**: Para fazer anotações em PDFs e artigos científicos.
+- **Xournal++**: Para fazer anotações em PDFs e artigos.
 
 ### 🔬 Desenvolvimento Científico
 - **R & RStudio**: O ambiente padrão para análise estatística.
@@ -90,8 +89,8 @@ Alguns scripts dependem de links de download diretos que podem mudar com o tempo
 
 Este projeto será mantido ativamente. A versão 2.0 planeja incluir:
 *   Menu de seleção interativo para escolher quais programas instalar.
-*   Suporte a softwares de CAD (FreeCAD/LibreCAD).
-*   Opções de configuração para ambientes LaTeX (TexLive).
+*   Suporte a softwares de CAD (FreeCAD/LibreCAD) e LaTeX (TexLive).
+*   Um organizador de tarefas e um editor de vídeo.
 
 ---
 
@@ -99,6 +98,12 @@ Este projeto será mantido ativamente. A versão 2.0 planeja incluir:
 
 Desenvolvido por **Evaldo Silva** ([@astuciasnor](https://github.com/astuciasnor)), professor da Universidade Federal do Pará, apaixonado por ciência, educação e software livre.
 
+> "Hoje parece fácil, mas foi preciso dedicação."
+
 ---
 
-> **Academix-Zorin** – Para que você possa se concentrar no que importa: ensinar, aprender e produzir ciência. 🚀
+## 📖 Documentação Completa
+
+Para um guia detalhado sobre cada programa instalado, dicas de uso e tutoriais de pós-instalação (como a configuração do GRUB), consulte nosso manual completo:
+
+### ➡️ **[Acessar o Manual do Usuário Academix-Zorin](https://astuciasnor.github.io/academix-zorin/)**

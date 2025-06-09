@@ -4,45 +4,47 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manual do Usuário - Academix-Zorin</title>
+<!-- Adicionando Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-  /* Seu CSS original e excelente está aqui */
-  body { margin: 0; font-family: 'Segoe UI', 'Arial', sans-serif; display: flex; height: 100vh; color: #333; background: #f8faff; scroll-behavior: smooth; overflow: hidden; }
-  nav#sidebar { width: 280px; background: #2a3e51; color: #e0eaff; padding: 1rem; overflow-y: auto; box-shadow: 2px 0 10px rgba(0,0,0,0.2); flex-shrink: 0; }
-  main#content { flex: 1; padding: 2.5rem 3.5rem; overflow-y: auto; height: 100vh; background: #ffffff; }
-  .logo-container { padding: 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 1rem; }
-  .logo-container img { max-width: 90%; height: auto; }
-  h1, h2, h3 { color: #1e3d5a; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; }
-  h1 { margin-top: 0; font-size: 2.2rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e0e0e0; }
-  /* ... resto do seu CSS ... */
-  p, ul, ol, blockquote { line-height: 1.6; margin-bottom: 1.2rem; font-size: 1.05rem; }
-  blockquote { border-left: 5px solid #2e5c8a; padding: 1.2rem; background: #e9f5ff; border-radius: 5px; }
-  pre { position: relative; background: #282c34; color: #abb2bf; padding: 1.2rem; border-radius: 8px; font-family: 'Fira Code', monospace; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
-  .copy-btn { position: absolute; top: 10px; right: 10px; background: #007bff; color: white; border: none; border-radius: 4px; padding: 0.3rem 0.8rem; cursor: pointer; opacity: 0.9; transition: opacity 0.3s ease; }
-  .highlight-box { background: #dff0d8; border-left: 5px solid #28a745; padding: 1rem 1.5rem; border-radius: 5px; color: #155724; }
-  .warning-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 1rem 1.5rem; border-radius: 5px; color: #664d03; }
-  nav#sidebar ul { list-style: none; padding-left: 0; margin: 0; }
-  nav#sidebar ul li a { display: block; padding: 8px 12px; border-radius: 6px; color: #e0eaff; text-decoration: none; transition: background-color 0.3s ease; }
-  nav#sidebar ul li a:hover { background-color: #4f6d8c; }
+  :root { --blue-dark: #2a3e51; --blue-medium: #3465A4; --blue-light: #729FCF; --bg-light: #f8faff; --text-light: #e0eaff; --text-dark: #333; --border-color: #dee2e6; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; display: flex; height: 100vh; color: var(--text-dark); background: var(--bg-light); scroll-behavior: smooth; overflow: hidden; }
+  nav#sidebar { width: 280px; background: var(--blue-dark); color: var(--text-light); display: flex; flex-direction: column; overflow-y: auto; box-shadow: 2px 0 10px rgba(0,0,0,0.1); flex-shrink: 0; }
+  main#content { flex: 1; padding: 3rem 4rem; overflow-y: auto; height: 100vh; background: #ffffff; }
+  .logo-container { padding: 1.5rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .logo-container img { max-width: 80%; height: auto; }
+  nav#sidebar ul { list-style: none; padding: 1rem; margin: 0; }
+  nav#sidebar ul li a { display: flex; align-items: center; gap: 10px; padding: 10px 15px; border-radius: 8px; color: var(--text-light); text-decoration: none; transition: background-color 0.2s ease, transform 0.2s ease; font-weight: 500; }
+  nav#sidebar ul li a:hover { background-color: var(--blue-medium); color: #fff; transform: translateX(5px); }
+  h1, h2, h3 { color: var(--blue-dark); font-weight: 700; margin: 2.5rem 0 1rem 0; }
+  h1 { font-size: 2.5rem; border-bottom: 3px solid var(--blue-light); padding-bottom: 0.5rem; }
+  h2 { font-size: 1.8rem; }
+  p, ul, ol { line-height: 1.7; margin-bottom: 1.2rem; font-size: 1.1rem; }
+  blockquote { border-left: 5px solid var(--blue-light); margin: 2rem 0; padding: 1rem 1.5rem; background: var(--bg-light); border-radius: 5px; font-style: italic; color: #555; }
+  pre { position: relative; background: #282c34; color: #abb2bf; padding: 1.5rem; border-radius: 8px; font-family: 'Fira Code', 'Consolas', monospace; overflow-x: auto; white-space: pre; }
+  .copy-btn { position: absolute; top: 12px; right: 12px; background: var(--blue-light); color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; opacity: 0.8; transition: opacity 0.2s ease; }
+  .copy-btn:hover { opacity: 1; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .card { background: #fff; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+  .card h3 { margin-top: 0; color: var(--blue-medium); }
+  .warning-box { background: #fff3cd; border: 1px solid #ffeeba; border-left: 5px solid #ffc107; padding: 1rem 1.5rem; border-radius: 5px; color: #664d03; }
 </style>
 <script>
-  // Seu JS original e funcional para os botões de copiar.
-  function copyToClipboard(btn) { const pre = btn.parentElement; if (!pre) return; const code = pre.querySelector('code'); if (!code) return; navigator.clipboard.writeText(code.textContent).then(() => { btn.textContent = 'Copiado!'; setTimeout(() => { btn.textContent = 'Copiar'; }, 1500); }).catch(err => { console.error('Falha ao copiar:', err); btn.textContent = 'Erro!'; }); }
+  function copyToClipboard(btn) { const pre = btn.parentElement; if (!pre) return; const code = pre.querySelector('code'); if (!code) return; navigator.clipboard.writeText(code.textContent).then(() => { btn.textContent = 'Copiado!'; setTimeout(() => { btn.textContent = 'Copiar'; }, 1500); }); }
   document.addEventListener('DOMContentLoaded', () => { document.querySelectorAll('pre').forEach(pre => { if (!pre.querySelector('.copy-btn')) { const btn = document.createElement('button'); btn.className = 'copy-btn'; btn.type = 'button'; btn.innerText = 'Copiar'; btn.addEventListener('click', () => copyToClipboard(btn)); pre.appendChild(btn); } }); document.querySelectorAll('nav#sidebar a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }); }); }); });
 </script>
 </head>
 <body>
 <nav id="sidebar" aria-label="Índice do Manual">
   <div class="logo-container">
-    <!-- Substitua pelo caminho relativo correto para o seu logo -->
     <a href="https://github.com/astuciasnor/academix-zorin" target="_blank"><img src="../images/academix_logo.png" alt="Logo Academix-Zorin"></a>
   </div>
   <ul>
-    <li><a href="#visao-geral"><strong>Visão Geral</strong></a></li>
-    <li><a href="#primeiros-passos">Primeiros Passos</a></li>
-    <li><a href="#produtividade">Produtividade Acadêmica</a></li>
-    <li><a href="#desenvolvimento">Desenvolvimento Científico</a></li>
-    <li><a href="#utilitarios">Utilitários Essenciais</a></li>
-    <li><a href="#grub-config">Configuração do GRUB</a></li>
+    <li><a href="#visao-geral"><i class="fas fa-rocket fa-fw"></i><strong>Visão Geral</strong></a></li>
+    <li><a href="#primeiros-passos"><i class="fas fa-shoe-prints fa-fw"></i>Primeiros Passos</a></li>
+    <li><a href="#programas-instalados"><i class="fas fa-box-open fa-fw"></i>Programas Instalados</a></li>
+    <li><a href="#grub-config"><i class="fas fa-list-ol fa-fw"></i>Configuração do GRUB</a></li>
   </ul>
 </nav>
 
@@ -51,80 +53,65 @@
     <h1>Manual do Usuário Academix-Zorin</h1>
     <p>Bem-vindo ao guia de pós-instalação do <strong>Academix-Zorin v1.0</strong>! Se você está lendo isto, significa que executou com sucesso nosso script e transformou seu Zorin OS em uma poderosa estação de trabalho para suas atividades acadêmicas e científicas.</p>
     <blockquote>Robustez, Eficiência e Estilo para sua Jornada Acadêmica.</blockquote>
-    <p>Este manual oferece um ponto de partida para cada ferramenta instalada, além de dicas úteis para configurações comuns. Use o menu à esquerda para navegar.</p>
+    <p>Este manual oferece um ponto de partida para cada ferramenta instalada, além de dicas úteis para configurações comuns.</p>
   </section>
 
   <section id="primeiros-passos">
     <h1>Primeiros Passos Pós-Instalação</h1>
-    <p>O processo de instalação automatizado cuidou de tudo. O recomendado agora é reiniciar seu computador para garantir que todas as configurações sejam aplicadas. Após reiniciar, você encontrará todos os novos programas no menu de aplicativos do Zorin OS.</p>
-    <div class="highlight-box">
-      <strong>Atualizações Futuras:</strong> Para manter os aplicativos instalados via Flatpak (Zotero, Flameshot, Pinta) atualizados, você pode rodar periodicamente o seguinte comando no terminal:
-      <pre><code>flatpak update</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
-      Os outros programas serão atualizados junto com o sistema através do "Atualizador de Programas" do Zorin.
-    </div>
+    <p>O processo de instalação automatizado cuidou de tudo. O recomendado agora é <strong>reiniciar seu computador</strong> para garantir que todas as configurações sejam aplicadas. Após reiniciar, você encontrará todos os novos programas no menu de aplicativos do Zorin OS.</p>
   </section>
 
-  <section id="produtividade">
-    <h2>Módulo: Produtividade Acadêmica</h2>
-    <h3>WPS Office & Zotero</h3>
-    <p>Sua suíte de escritório principal, <strong>WPS Office</strong>, foi instalada com a tradução para Português (Brasil). A integração com o <strong>Zotero</strong> também foi configurada. Para começar a citar seus trabalhos, abra o WPS Writer e procure pela nova aba "Zotero" na barra de ferramentas.</p>
-    <h3>Okular & Xournal++</h3>
-    <p>Use o <strong>Okular</strong> para visualizar PDFs e outros formatos de documento. Para fazer anotações, rabiscos e destaques em artigos e slides, o <strong>Xournal++</strong> é a ferramenta perfeita.</p>
-  </section>
-
-  <section id="desenvolvimento">
-    <h2>Módulo: Desenvolvimento Científico</h2>
-    <h3>R, RStudio & Quarto</h3>
-    <p>Seu ambiente para análise de dados está pronto. O <strong>R</strong> foi instalado a partir do repositório CRAN oficial, e o <strong>RStudio</strong> é a versão mais recente compatível. O <strong>Quarto</strong>, para publicação científica, já está integrado ao RStudio.</p>
-    <h3>Python & VS Code</h3>
-    <p>O <strong>Visual Studio Code</strong> foi instalado e configurado para desenvolvimento em <strong>Python</strong>. Uma versão recente do Python (via PPA `deadsnakes`) está disponível. Para criar ambientes virtuais isolados, use o comando: <code>python3.12 -m venv nome_do_ambiente</code>.</p>
-    <h3>Inkscape</h3>
-    <p>Para criar figuras, diagramas e gráficos vetoriais com qualidade de publicação, utilize o <strong>Inkscape</strong>. É a alternativa de código aberto padrão da indústria ao Adobe Illustrator.</p>
-  </section>
-
-  <section id="utilitarios">
-      <h2>Módulo: Utilitários Essenciais</h2>
-      <p>Diversas ferramentas foram adicionadas para facilitar seu dia a dia:</p>
-      <ul>
-          <li><strong>Google Chrome:</strong> Navegador web.</li>
-          <li><strong>Mailspring:</strong> Um cliente de e-mail moderno e elegante.</li>
-          <li><strong>KeePassXC:</strong> Um gerenciador de senhas seguro e offline para proteger suas contas.</li>
-          <li><strong>PeaZip:</strong> Para compactar e descompactar arquivos em diversos formatos.</li>
-          <li><strong>Flameshot:</strong> Ferramenta avançada para captura de tela. Configure um atalho para o comando <code>flameshot gui</code> para acesso rápido.</li>
-          <li><strong>Pinta:</strong> Um editor de imagens simples e rápido para edições básicas.</li>
-      </ul>
+  <section id="programas-instalados">
+      <h1>Programas Instalados</h1>
+      <p>Abaixo está um resumo dos principais softwares que o Academix-Zorin instalou para você.</p>
+      <div class="card-grid">
+          <div class="card"><h3><i class="fas fa-file-word"></i> WPS Office</h3><p>Suíte de escritório moderna e compatível, com tradução pt-BR e integração com Zotero já ativada.</p></div>
+          <div class="card"><h3><i class="fas fa-book"></i> Zotero</h3><p>Gerenciador de referências bibliográficas instalado via Flatpak para garantir estabilidade e atualizações fáceis.</p></div>
+          <div class="card"><h3><i class="fas fa-chart-bar"></i> R & RStudio</h3><p>Ambiente completo para análise estatística, com a versão mais recente do R e RStudio.</p></div>
+          <div class="card"><h3><i class="fab fa-python"></i> Python & VS Code</h3><p>A combinação perfeita para ciência de dados e desenvolvimento geral, pronta para uso.</p></div>
+          <div class="card"><h3><i class="fas fa-file-alt"></i> Quarto</h3><p>Sistema de publicação científica integrado ao RStudio para criar artigos e relatórios.</p></div>
+          <div class="card"><h3><i class="fas fa-palette"></i> Inkscape</h3><p>Editor de gráficos vetoriais para criar figuras com qualidade de publicação.</p></div>
+          <div class="card"><h3><i class="fas fa-highlighter"></i> Xournal++</h3><p>Ferramenta ideal para fazer anotações em PDFs, artigos e slides.</p></div>
+          <div class="card"><h3><i class="fas fa-envelope"></i> Mailspring</h3><p>Um cliente de e-mail moderno, rápido e com uma interface elegante.</p></div>
+          <div class="card"><h3><i class="fas fa-key"></i> KeePassXC</h3><p>Gerenciador de senhas seguro e de código aberto para proteger suas contas.</p></div>
+          <div class="card"><h3><i class="fab fa-chrome"></i> Google Chrome</h3><p>O navegador web rápido e moderno para todas as suas necessidades online.</p></div>
+          <div class="card"><h3><i class="fas fa-file-pdf"></i> Okular</h3><p>Visualizador de documentos versátil, especializado em PDFs e outros formatos.</p></div>
+          <div class="card"><h3><i class="fas fa-camera"></i> Flameshot</h3><p>Ferramenta avançada para captura de tela. Configure um atalho para <code>flameshot gui</code>.</p></div>
+      </div>
   </section>
 
   <section id="grub-config">
-    <h1>Guia Aprimorado: Configurando o GRUB (Dual Boot)</h1>
-    <h2 id="grub-introducao">Introdução</h2>
-    <p>Se você utiliza o Zorin OS em dual boot com o Windows, pode querer que o Windows seja a opção padrão na inicialização. Este guia mostra como fazer isso de forma segura.</p>
+    <h1>Guia Completo: Configurando o GRUB (Dual Boot)</h1>
+    <h2>Introdução</h2>
+    <p>O GRUB (Grand Unified Bootloader) é o menu que aparece quando você liga o computador, permitindo escolher entre Zorin OS e Windows. Este guia mostra como definir o Windows como a opção padrão, para que ele inicie automaticamente se você não tocar em nada.</p>
     <div class="warning-box">
       <strong>Atenção:</strong> A edição de arquivos de boot é uma operação sensível. Siga os passos com atenção. Um erro de digitação pode afetar a inicialização do sistema. Faça por sua conta e risco.
     </div>
 
     <h3>Passo 1: Identificar a Entrada do Windows</h3>
     <p>Primeiro, precisamos saber o nome exato que o GRUB usa para o Windows. Abra o terminal e execute:</p>
-    <pre><code>grep "menuentry '" /boot/grub/grub.cfg</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
-    <p>A saída listará todas as entradas do menu. Procure pela linha do Windows e **copie o texto exato que está entre as aspas simples**. Por exemplo:</p>
-    <blockquote><code>'Windows Boot Manager (on /dev/nvme0n1p1)'</code></blockquote>
+    <pre><code>grep --color=never "menuentry '" /boot/grub/grub.cfg</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>A saída listará todas as entradas do menu. Procure pela linha do Windows e **copie o texto exato que está entre as aspas simples (' ').**</p>
+    <blockquote>Exemplo de saída:<br>
+    <code>menuentry 'Zorin OS 17.1' ...</code><br>
+    <code>menuentry 'Windows Boot Manager (on /dev/nvme0n1p1)' ...</code><br>
+    No caso acima, o texto a ser copiado é: <code>Windows Boot Manager (on /dev/nvme0n1p1)</code></blockquote>
 
     <h3>Passo 2: Editar o Arquivo de Configuração do GRUB</h3>
-    <p>Agora, vamos editar o arquivo de configuração principal do GRUB com um editor de texto no terminal:</p>
+    <p>Agora, vamos editar o arquivo de configuração principal do GRUB com o editor de texto `nano`:</p>
     <pre><code>sudo nano /etc/default/grub</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
-    <p>Dentro do editor, localize a linha que diz <code>GRUB_DEFAULT=0</code>. Apague o <code>0</code> e cole o texto que você copiou, agora entre aspas duplas. A linha deve ficar assim:</p>
+    <p>Dentro do editor, localize a linha que diz <code>GRUB_DEFAULT=0</code>. Apague o <code>0</code> e cole o texto que você copiou, agora entre aspas duplas (" "). A linha deve ficar assim:</p>
     <pre><code>GRUB_DEFAULT="Windows Boot Manager (on /dev/nvme0n1p1)"</code></pre>
 
-    <h3>Passo 3: Ajustar o Tempo de Espera (Timeout)</h3>
-    <p>No mesmo arquivo, você pode alterar o tempo que o menu fica visível. Encontre a linha <code>GRUB_TIMEOUT=10</code> e altere o valor `10` para o número de segundos que desejar (ex: `5` para 5 segundos).</p>
-    <p>Para que o menu sempre espere sua escolha (não inicie automaticamente), mude para <code>GRUB_TIMEOUT=-1</code>.</p>
+    <h3>Passo 3: Ajustar o Tempo de Espera (Opcional)</h3>
+    <p>No mesmo arquivo, você pode alterar o tempo que o menu fica visível. Encontre a linha <code>GRUB_TIMEOUT=10</code> e altere o valor `10` para o número de segundos que desejar (ex: `5` para 5 segundos). Para que o menu sempre espere sua escolha (não inicie automaticamente), mude para <code>GRUB_TIMEOUT=-1</code>.</p>
 
     <h3>Passo 4: Salvar e Aplicar as Mudanças</h3>
-    <p>Para salvar o arquivo no editor `nano`, pressione `Ctrl+O`, depois `Enter`, e então `Ctrl+X` para sair.</p>
+    <p>Para salvar o arquivo no editor `nano`, pressione <code>Ctrl+O</code>, depois <code>Enter</code> para confirmar, e então <code>Ctrl+X` para sair.</p>
     <p>De volta ao terminal, execute o comando final para que o sistema aplique suas novas configurações:</p>
     <pre><code>sudo update-grub</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
     
-    <h3>Passo 5: Reiniciar</h3>
+    <h3>Passo 5: Reiniciar e Verificar</h3>
     <p>Pronto! Na próxima vez que reiniciar o computador, o Windows estará pré-selecionado no menu do GRUB.</p>
   </section>
 </main>
