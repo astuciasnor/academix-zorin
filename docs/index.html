@@ -5,131 +5,127 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manual do Usuário - Academix-Zorin</title>
 <style>
-  /* Todo o seu CSS original, que é excelente, foi mantido aqui... */
-  /* ... */
+  /* Seu CSS original e excelente está aqui */
+  body { margin: 0; font-family: 'Segoe UI', 'Arial', sans-serif; display: flex; height: 100vh; color: #333; background: #f8faff; scroll-behavior: smooth; overflow: hidden; }
+  nav#sidebar { width: 280px; background: #2a3e51; color: #e0eaff; padding: 1rem; overflow-y: auto; box-shadow: 2px 0 10px rgba(0,0,0,0.2); flex-shrink: 0; }
+  main#content { flex: 1; padding: 2.5rem 3.5rem; overflow-y: auto; height: 100vh; background: #ffffff; }
+  .logo-container { padding: 1rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 1rem; }
+  .logo-container img { max-width: 90%; height: auto; }
+  h1, h2, h3 { color: #1e3d5a; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; }
+  h1 { margin-top: 0; font-size: 2.2rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e0e0e0; }
+  /* ... resto do seu CSS ... */
+  p, ul, ol, blockquote { line-height: 1.6; margin-bottom: 1.2rem; font-size: 1.05rem; }
+  blockquote { border-left: 5px solid #2e5c8a; padding: 1.2rem; background: #e9f5ff; border-radius: 5px; }
+  pre { position: relative; background: #282c34; color: #abb2bf; padding: 1.2rem; border-radius: 8px; font-family: 'Fira Code', monospace; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+  .copy-btn { position: absolute; top: 10px; right: 10px; background: #007bff; color: white; border: none; border-radius: 4px; padding: 0.3rem 0.8rem; cursor: pointer; opacity: 0.9; transition: opacity 0.3s ease; }
+  .highlight-box { background: #dff0d8; border-left: 5px solid #28a745; padding: 1rem 1.5rem; border-radius: 5px; color: #155724; }
+  .warning-box { background: #fff3cd; border-left: 5px solid #ffc107; padding: 1rem 1.5rem; border-radius: 5px; color: #664d03; }
+  nav#sidebar ul { list-style: none; padding-left: 0; margin: 0; }
+  nav#sidebar ul li a { display: block; padding: 8px 12px; border-radius: 6px; color: #e0eaff; text-decoration: none; transition: background-color 0.3s ease; }
+  nav#sidebar ul li a:hover { background-color: #4f6d8c; }
 </style>
 <script>
-  // Todo o seu JavaScript original foi mantido aqui...
-  /* ... */
+  // Seu JS original e funcional para os botões de copiar.
+  function copyToClipboard(btn) { const pre = btn.parentElement; if (!pre) return; const code = pre.querySelector('code'); if (!code) return; navigator.clipboard.writeText(code.textContent).then(() => { btn.textContent = 'Copiado!'; setTimeout(() => { btn.textContent = 'Copiar'; }, 1500); }).catch(err => { console.error('Falha ao copiar:', err); btn.textContent = 'Erro!'; }); }
+  document.addEventListener('DOMContentLoaded', () => { document.querySelectorAll('pre').forEach(pre => { if (!pre.querySelector('.copy-btn')) { const btn = document.createElement('button'); btn.className = 'copy-btn'; btn.type = 'button'; btn.innerText = 'Copiar'; btn.addEventListener('click', () => copyToClipboard(btn)); pre.appendChild(btn); } }); document.querySelectorAll('nav#sidebar a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }); }); }); });
 </script>
 </head>
 <body>
 <nav id="sidebar" aria-label="Índice do Manual">
-  <h2>Índice do Manual</h2>
+  <div class="logo-container">
+    <!-- Substitua pelo caminho relativo correto para o seu logo -->
+    <a href="https://github.com/astuciasnor/academix-zorin" target="_blank"><img src="../images/academix_logo.png" alt="Logo Academix-Zorin"></a>
+  </div>
   <ul>
-    <li><a href="#visao-geral">Visão Geral</a></li>
+    <li><a href="#visao-geral"><strong>Visão Geral</strong></a></li>
     <li><a href="#primeiros-passos">Primeiros Passos</a></li>
-    <li>
-      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-produtividade" aria-label="Toggle Seção Produtividade">Produtividade Acadêmica</div>
-      <ul id="submenu-produtividade" aria-hidden="true">
-        <li><a href="#wps-office">WPS Office</a></li>
-        <li><a href="#zotero">Zotero</a></li>
-        <li><a href="#okular">Okular</a></li>
-        <li><a href="#xournalpp">Xournal++</a></li>
-      </ul>
-    </li>
-    <li>
-        <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-dev" aria-label="Toggle Seção Desenvolvimento">Desenvolvimento Científico</div>
-        <ul id="submenu-dev" aria-hidden="true">
-            <li><a href="#r-rstudio">R e RStudio</a></li>
-            <li><a href="#python-vscode">Python e VS Code</a></li>
-            <li><a href="#quarto">Quarto</a></li>
-            <li><a href="#inkscape">Inkscape</a></li>
-        </ul>
-    </li>
-    <li>
-        <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-utils" aria-label="Toggle Seção Utilitários">Utilitários Essenciais</div>
-        <ul id="submenu-utils" aria-hidden="true">
-            <li><a href="#chrome">Google Chrome</a></li>
-            <li><a href="#mailspring">Mailspring</a></li>
-            <li><a href="#keepassxc">KeePassXC</a></li>
-            <li><a href="#peazip">PeaZip</a></li>
-            <li><a href="#flameshot">Flameshot</a></li>
-            <li><a href="#pinta">Pinta</a></li>
-        </ul>
-    </li>
-    <li>
-      <div tabindex="0" class="menu-header" role="button" aria-expanded="false" aria-controls="submenu-grub" aria-label="Toggle Configuração do GRUB submenu">Configuração do GRUB</div>
-      <ul id="submenu-grub" aria-hidden="true">
-        <li><a href="#grub-introducao">Introdução</a></li>
-        <li><a href="#grub-passo1">Passo 1: Listar entradas</a></li>
-        <li><a href="#grub-passo2">Passo 2: Editar arquivo</a></li>
-        <li><a href="#grub-passo3">Passo 3: Configurar tempo</a></li>
-        <li><a href="#grub-passo4">Passo 4: Salvar e atualizar</a></li>
-        <li><a href="#grub-passo5">Passo 5: Reiniciar e verificar</a></li>
-      </ul>
-    </li>
+    <li><a href="#produtividade">Produtividade Acadêmica</a></li>
+    <li><a href="#desenvolvimento">Desenvolvimento Científico</a></li>
+    <li><a href="#utilitarios">Utilitários Essenciais</a></li>
+    <li><a href="#grub-config">Configuração do GRUB</a></li>
   </ul>
 </nav>
 
 <main id="content" tabindex="-1">
-  <!-- Visão Geral -->
   <section id="visao-geral">
     <h1>Manual do Usuário Academix-Zorin</h1>
-    <p>Bem-vindo ao guia de pós-instalação do Academix-Zorin! Se você está lendo isto, significa que executou com sucesso nosso script de automação e agora possui uma poderosa estação de trabalho pronta para suas atividades acadêmicas e científicas.</p>
-    <div class="highlight-box">
-      <strong>O que este manual cobre?</strong>
-      <ul>
-        <li>Dicas iniciais de uso para os principais programas instalados.</li>
-        <li>Instruções para configurações comuns, como o GRUB para dual boot.</li>
-        <li>Links e recursos para você se aprofundar em cada ferramenta.</li>
-      </ul>
-    </div>
-    <p>Use o menu à esquerda para navegar rapidamente até a seção do programa sobre o qual você deseja saber mais.</p>
+    <p>Bem-vindo ao guia de pós-instalação do <strong>Academix-Zorin v1.0</strong>! Se você está lendo isto, significa que executou com sucesso nosso script e transformou seu Zorin OS em uma poderosa estação de trabalho para suas atividades acadêmicas e científicas.</p>
+    <blockquote>Robustez, Eficiência e Estilo para sua Jornada Acadêmica.</blockquote>
+    <p>Este manual oferece um ponto de partida para cada ferramenta instalada, além de dicas úteis para configurações comuns. Use o menu à esquerda para navegar.</p>
   </section>
 
-  <!-- Primeiros Passos -->
   <section id="primeiros-passos">
-    <h1>Primeiros Passos</h1>
-    <p>O instalador automatizado do Academix-Zorin preparou seu sistema e instalou um conjunto completo de softwares. A maneira de iniciar o processo foi simples:</p>
-    <ol>
-        <li>
-            <strong>Clonar o repositório do GitHub:</strong>
-            <pre><code>git clone https://github.com/astuciasnor/academix-zorin.git</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
-        </li>
-        <li>
-            <strong>Entrar no diretório:</strong>
-            <pre><code>cd academix-zorin</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
-        </li>
-        <li>
-            <strong>Executar o script mestre:</strong>
-            <pre><code>./academix-zorin.sh</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
-        </li>
-    </ol>
-    <p>Após a conclusão e uma reinicialização do sistema, todos os programas listados neste manual estarão disponíveis no seu menu de aplicativos.</p>
-  </section>
-
-  <!-- Seções dos Programas -->
-  <!-- Mantive as seções originais, mas você pode querer editá-las para refletir a nova realidade. -->
-  <!-- Exemplo para o WPS Office -->
-  <section id="wps-office">
-    <h1>WPS Office</h1>
-    <p>O WPS Office foi instalado e configurado com a tradução para Português (Brasil). Ele é a sua suíte de escritório principal, compatível com os formatos do Microsoft Office.</p>
+    <h1>Primeiros Passos Pós-Instalação</h1>
+    <p>O processo de instalação automatizado cuidou de tudo. O recomendado agora é reiniciar seu computador para garantir que todas as configurações sejam aplicadas. Após reiniciar, você encontrará todos os novos programas no menu de aplicativos do Zorin OS.</p>
     <div class="highlight-box">
-        <strong>Dica:</strong> A integração com o Zotero já foi configurada. Procure pela aba "Zotero" no WPS Writer para começar a adicionar citações e bibliografias aos seus documentos.
+      <strong>Atualizações Futuras:</strong> Para manter os aplicativos instalados via Flatpak (Zotero, Flameshot, Pinta) atualizados, você pode rodar periodicamente o seguinte comando no terminal:
+      <pre><code>flatpak update</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+      Os outros programas serão atualizados junto com o sistema através do "Atualizador de Programas" do Zorin.
     </div>
   </section>
 
-  <section id="zotero">
-    <h1>Zotero</h1>
-    <p>Seu gerenciador de referências, Zotero, foi instalado via Flatpak, garantindo atualizações fáceis e estabilidade. Para mantê-lo e outros aplicativos Flatpak atualizados, use o comando:</p>
-    <pre><code>flatpak update</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+  <section id="produtividade">
+    <h2>Módulo: Produtividade Acadêmica</h2>
+    <h3>WPS Office & Zotero</h3>
+    <p>Sua suíte de escritório principal, <strong>WPS Office</strong>, foi instalada com a tradução para Português (Brasil). A integração com o <strong>Zotero</strong> também foi configurada. Para começar a citar seus trabalhos, abra o WPS Writer e procure pela nova aba "Zotero" na barra de ferramentas.</p>
+    <h3>Okular & Xournal++</h3>
+    <p>Use o <strong>Okular</strong> para visualizar PDFs e outros formatos de documento. Para fazer anotações, rabiscos e destaques em artigos e slides, o <strong>Xournal++</strong> é a ferramenta perfeita.</p>
   </section>
-  
-  <!-- Adicione ou adapte as seções para todos os outros programas aqui... -->
-  <!-- ... mantendo a estrutura original que você já tinha ... -->
 
+  <section id="desenvolvimento">
+    <h2>Módulo: Desenvolvimento Científico</h2>
+    <h3>R, RStudio & Quarto</h3>
+    <p>Seu ambiente para análise de dados está pronto. O <strong>R</strong> foi instalado a partir do repositório CRAN oficial, e o <strong>RStudio</strong> é a versão mais recente compatível. O <strong>Quarto</strong>, para publicação científica, já está integrado ao RStudio.</p>
+    <h3>Python & VS Code</h3>
+    <p>O <strong>Visual Studio Code</strong> foi instalado e configurado para desenvolvimento em <strong>Python</strong>. Uma versão recente do Python (via PPA `deadsnakes`) está disponível. Para criar ambientes virtuais isolados, use o comando: <code>python3.12 -m venv nome_do_ambiente</code>.</p>
+    <h3>Inkscape</h3>
+    <p>Para criar figuras, diagramas e gráficos vetoriais com qualidade de publicação, utilize o <strong>Inkscape</strong>. É a alternativa de código aberto padrão da indústria ao Adobe Illustrator.</p>
+  </section>
 
-  <!-- Configuração do GRUB -->
-  <section id="grub-introducao">
-    <h1>Configuração do GRUB (Dual Boot)</h1>
+  <section id="utilitarios">
+      <h2>Módulo: Utilitários Essenciais</h2>
+      <p>Diversas ferramentas foram adicionadas para facilitar seu dia a dia:</p>
+      <ul>
+          <li><strong>Google Chrome:</strong> Navegador web.</li>
+          <li><strong>Mailspring:</strong> Um cliente de e-mail moderno e elegante.</li>
+          <li><strong>KeePassXC:</strong> Um gerenciador de senhas seguro e offline para proteger suas contas.</li>
+          <li><strong>PeaZip:</strong> Para compactar e descompactar arquivos em diversos formatos.</li>
+          <li><strong>Flameshot:</strong> Ferramenta avançada para captura de tela. Configure um atalho para o comando <code>flameshot gui</code> para acesso rápido.</li>
+          <li><strong>Pinta:</strong> Um editor de imagens simples e rápido para edições básicas.</li>
+      </ul>
+  </section>
+
+  <section id="grub-config">
+    <h1>Guia Aprimorado: Configurando o GRUB (Dual Boot)</h1>
     <h2 id="grub-introducao">Introdução</h2>
-    <p>Se você tem um dual boot com Windows, pode ser útil configurar o GRUB (gerenciador de boot) para definir qual sistema inicia por padrão.</p>
+    <p>Se você utiliza o Zorin OS em dual boot com o Windows, pode querer que o Windows seja a opção padrão na inicialização. Este guia mostra como fazer isso de forma segura.</p>
+    <div class="warning-box">
+      <strong>Atenção:</strong> A edição de arquivos de boot é uma operação sensível. Siga os passos com atenção. Um erro de digitação pode afetar a inicialização do sistema. Faça por sua conta e risco.
+    </div>
+
+    <h3>Passo 1: Identificar a Entrada do Windows</h3>
+    <p>Primeiro, precisamos saber o nome exato que o GRUB usa para o Windows. Abra o terminal e execute:</p>
+    <pre><code>grep "menuentry '" /boot/grub/grub.cfg</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>A saída listará todas as entradas do menu. Procure pela linha do Windows e **copie o texto exato que está entre as aspas simples**. Por exemplo:</p>
+    <blockquote><code>'Windows Boot Manager (on /dev/nvme0n1p1)'</code></blockquote>
+
+    <h3>Passo 2: Editar o Arquivo de Configuração do GRUB</h3>
+    <p>Agora, vamos editar o arquivo de configuração principal do GRUB com um editor de texto no terminal:</p>
+    <pre><code>sudo nano /etc/default/grub</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
+    <p>Dentro do editor, localize a linha que diz <code>GRUB_DEFAULT=0</code>. Apague o <code>0</code> e cole o texto que você copiou, agora entre aspas duplas. A linha deve ficar assim:</p>
+    <pre><code>GRUB_DEFAULT="Windows Boot Manager (on /dev/nvme0n1p1)"</code></pre>
+
+    <h3>Passo 3: Ajustar o Tempo de Espera (Timeout)</h3>
+    <p>No mesmo arquivo, você pode alterar o tempo que o menu fica visível. Encontre a linha <code>GRUB_TIMEOUT=10</code> e altere o valor `10` para o número de segundos que desejar (ex: `5` para 5 segundos).</p>
+    <p>Para que o menu sempre espere sua escolha (não inicie automaticamente), mude para <code>GRUB_TIMEOUT=-1</code>.</p>
+
+    <h3>Passo 4: Salvar e Aplicar as Mudanças</h3>
+    <p>Para salvar o arquivo no editor `nano`, pressione `Ctrl+O`, depois `Enter`, e então `Ctrl+X` para sair.</p>
+    <p>De volta ao terminal, execute o comando final para que o sistema aplique suas novas configurações:</p>
+    <pre><code>sudo update-grub</code><button class="copy-btn" onclick="copyToClipboard(this)">Copiar</button></pre>
     
-    <!-- Todo o conteúdo original do guia do GRUB foi mantido, pois ele é excelente e atemporal. -->
-    <h2 id="grub-passo1">Passo 1: Listar entradas do GRUB</h2>
-    <p>...</p>
-    <!-- ... -->
+    <h3>Passo 5: Reiniciar</h3>
+    <p>Pronto! Na próxima vez que reiniciar o computador, o Windows estará pré-selecionado no menu do GRUB.</p>
   </section>
 </main>
 </body>
